@@ -1,5 +1,5 @@
 import React, { FC, FormEvent, useState } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Root, TextareaContainer } from './style';
 import { Avatar, TextAreaAutoSize } from '../../ui';
 import axios from 'axios';

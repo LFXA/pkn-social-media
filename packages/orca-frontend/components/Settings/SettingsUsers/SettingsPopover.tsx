@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import axios from 'axios';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { openAlert, AlertTypes } from '../../../store/alert';
 import { StyledButton } from './style';

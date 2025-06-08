@@ -10,12 +10,13 @@ import routes from './routes';
 import socket from './socket';
 import { initDb } from './db';
 import { initPassport } from './authentication';
+import fileUpload from 'express-fileupload';
 
 initDb();
 initPassport();
 
 const app = express();
-
+app.use(fileUpload());
 app.use(compression());
 app.use(cookieParser());
 app.use(

@@ -5,7 +5,7 @@ import { PostCard } from '../../components/Post';
 import { Container } from '../../components/ui';
 import Seo from '../../components/Seo';
 import { GetServerSideProps } from 'next';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 const fetchPost = async ({ queryKey }) => {
   const [, postId] = queryKey;

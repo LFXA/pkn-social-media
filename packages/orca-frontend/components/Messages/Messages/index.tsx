@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Root } from './style';
 import MessagesUsers from '../MessagesUsers';
 import MessagesChat from '../MessagesChat';

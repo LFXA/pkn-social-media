@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { DataLimit, UserRole } from '../../../constants';
 import { useInfiniteScroll, timeAgo } from '../../../utils';
 import {

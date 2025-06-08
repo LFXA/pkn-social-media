@@ -1,13 +1,12 @@
 import React, { FC, useState, useRef } from 'react';
 import axios from 'axios';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { openAlert, AlertTypes } from '../../store/alert';
 import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import { Popover, PopoverContent, ThreeDots } from './style';
 import { Button, Modal, Confirm, Spacing } from '../ui';
-const ChannelEdit = dynamic(() => import('../Channel/ChannelEdit'));
+import ChannelEdit from '../Channel/ChannelEdit';
 import { ThreeDotsIcon } from '../ui/icons';
 import { useClickOutside } from '../../utils';
 import { Channel } from '../../constants';
@@ -30,10 +29,11 @@ const ChannelPopover: FC<ChannelPopoverProps> = ({ channel }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   useClickOutside(ref, isOpen, () => {
+    console.log('Clicked outside, closing popover');
     setIsOpen(false);
   });
 
-  const { mutateAsync } = useMutation(deleteChannel);
+  const { mutateAsync } = useMutation({ mutationFn: deleteChannel });
 
   const removeChannel = async (id: string) => {
     try {
@@ -87,14 +87,20 @@ const ChannelPopover: FC<ChannelPopoverProps> = ({ channel }) => {
       </Modal>
 
       <Confirm isOpen={isDeleteModalOpen} close={closeModal} onConfirm={() => removeChannel(channel._id)} />
-
-      <ThreeDots isOpen={isOpen}>
-        <Button ghost onClick={() => setIsOpen(!isOpen)}>
+      <Button
+        ghost
+        onClick={() => {
+          setIsOpen(!isOpen);
+          console.log('Toggled isOpen:', !isOpen);
+        }}
+      >
+        {' '}
+        <ThreeDots isOpen={isOpen}>
           <Spacing top="xxs" bottom="xxs" left="xxs" right="xxs">
             <ThreeDotsIcon />
           </Spacing>
-        </Button>
-      </ThreeDots>
+        </ThreeDots>
+      </Button>
 
       {isOpen && (
         <PopoverContent>

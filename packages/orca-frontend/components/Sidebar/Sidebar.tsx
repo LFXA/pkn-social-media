@@ -1,7 +1,7 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect, useState } from 'react';
-import { List, arrayMove } from 'react-movable';
+
 import { useSelector } from 'react-redux';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { UserRole } from '../../constants';
 import { Button, ButtonLink, Divider, Modal, Spacing, Avatar } from '../ui';
 import {
@@ -19,6 +19,12 @@ import { RootState } from '../../store';
 import axios from 'axios';
 import ChannelCreate from '../Channel/ChannelCreate';
 
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core';
+
+import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+
+import { CSS } from '@dnd-kit/utilities';
+
 interface SidebarProps {
   isOpen: boolean;
 }
@@ -33,15 +39,55 @@ const reorderChannels = async ({ sortedChannels }) => {
   return response;
 };
 
+function SortableChannelItem({ channel, isAdmin, activeChannelName }) {
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: channel._id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  };
+
+  return (
+    <LI ref={setNodeRef} style={style}>
+      <ButtonLink
+        fullWidth
+        radius="none"
+        href={`/channel/${channel.name}`}
+        color="text"
+        active={channel.name === activeChannelName}
+        size="sm"
+      >
+        <ChannelName>{channel.name}</ChannelName>
+      </ButtonLink>
+
+      {isAdmin && (
+        <Spacing right="xxs">
+          <DragButton ghost tabIndex={-1} {...attributes} {...listeners}>
+            <DragIcon />
+          </DragButton>
+        </Spacing>
+      )}
+
+      {isAdmin && <ChannelPopover channel={channel} />}
+    </LI>
+  );
+}
+
 const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpen }, ref) => {
   const authUser = useSelector((state: RootState) => state.auth.user);
   const [modal, setModal] = useState(false);
   const closeModal = () => setModal(false);
   const router = useRouter();
 
-  const { data: channels } = useQuery('channels', fetchChannels);
+  const { data: channels } = useQuery({
+    queryKey: ['channels'],
+    queryFn: fetchChannels,
+  });
   const [channelItems, setChannelItems] = useState([]);
-  const { mutateAsync: reorderChannelsMutation } = useMutation(reorderChannels);
+  const { mutateAsync: reorderChannelsMutation } = useMutation({ mutationFn: reorderChannels });
   const isAdmin = (authUser && authUser.role === UserRole.Admin) || (authUser && authUser.role === UserRole.SuperAdmin);
 
   useEffect(() => {
@@ -50,12 +96,21 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
     }
   }, [channels]);
 
-  useEffect(() => {
-    if (channelItems.length > 0 && isAdmin) {
-      reorderChannelsMutation({ sortedChannels: channelItems });
-    }
-  }, [channelItems, reorderChannelsMutation, isAdmin]);
+  const sensors = useSensors(useSensor(PointerSensor));
 
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      const oldIndex = channelItems.findIndex((c) => c._id === active.id);
+      const newIndex = channelItems.findIndex((c) => c._id === over.id);
+      const newOrder = arrayMove(channelItems, oldIndex, newIndex);
+      setChannelItems(newOrder);
+      console.log('Clicked outside, closing popover');
+      if (isAdmin) {
+        await reorderChannelsMutation({ sortedChannels: newOrder });
+      }
+    }
+  };
   return (
     <Root ref={ref} isOpen={isOpen}>
       <Modal title="Create Channel" isOpen={modal} close={closeModal}>
@@ -137,40 +192,20 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
       </UL>
 
       {channelItems?.length > 0 && (
-        <List
-          lockVertically
-          values={channelItems}
-          onChange={({ oldIndex, newIndex }) => {
-            setChannelItems(arrayMove(channelItems, oldIndex, newIndex));
-          }}
-          renderList={({ children, props }) => <UL {...props}>{children}</UL>}
-          renderItem={({ value, props }) => {
-            return (
-              <LI {...props}>
-                <ButtonLink
-                  fullWidth
-                  radius="none"
-                  href={`/channel/${value.name}`}
-                  color="text"
-                  active={value.name === router.query.name}
-                  size="sm"
-                >
-                  <ChannelName>{value.name}</ChannelName>
-                </ButtonLink>
-
-                {isAdmin && (
-                  <Spacing right="xxs">
-                    <DragButton ghost data-movable-handle tabIndex={-1}>
-                      <DragIcon />
-                    </DragButton>
-                  </Spacing>
-                )}
-
-                {isAdmin && <ChannelPopover channel={value} />}
-              </LI>
-            );
-          }}
-        />
+        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+          <SortableContext items={channelItems.map((c) => c._id)} strategy={verticalListSortingStrategy}>
+            <UL>
+              {channelItems.map((channel) => (
+                <SortableChannelItem
+                  key={channel._id}
+                  channel={channel}
+                  isAdmin={isAdmin}
+                  activeChannelName={router.query.name}
+                />
+              ))}
+            </UL>
+          </SortableContext>
+        </DndContext>
       )}
 
       {isAdmin && (

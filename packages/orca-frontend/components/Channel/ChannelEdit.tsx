@@ -2,7 +2,7 @@ import { FC, FormEvent } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { openAlert, AlertTypes } from '../../store/alert';
 import ChannelForm, { IChannelForm, ChannelFormMode } from './ChannelForm';
 import { Channel } from '../../constants';
@@ -26,7 +26,7 @@ const ChannelEdit: FC<ChannelEditProps> = ({ channel, closeModal }) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isLoading, error } = useMutation(updateChannel);
+  const { mutateAsync, isLoading, error } = useMutation({ mutationFn: updateChannel });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>, formValues: IChannelForm) => {
     try {

@@ -1,6 +1,6 @@
 import React, { FC, useState, useRef } from 'react';
 import axios from 'axios';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Confirm } from '../../ui';
 import { ThreeDotsIcon } from '../../ui/icons';

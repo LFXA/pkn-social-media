@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Input, Label, Text } from './style';
 import { UploadIcon } from '../../ui/icons';
 import { MaxImageSize } from '../../../constants';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { setCommunityLogo, setCommunityLogoPublicId } from '../../../store/settings';
 import { AlertTypes, openAlert } from '../../../store/alert';

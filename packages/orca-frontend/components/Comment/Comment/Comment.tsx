@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { Root, UserName, Container, StyledButton } from './style';
 import { Link, Avatar, Confirm } from '../../ui';

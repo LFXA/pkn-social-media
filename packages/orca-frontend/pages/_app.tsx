@@ -5,9 +5,8 @@ import axios from 'axios';
 import Router from 'next/router';
 import NProgress from 'nprogress';
 import { Provider as ReduxProvider } from 'react-redux';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import { Hydrate } from 'react-query/hydration';
+import { QueryClient, QueryClientProvider, HydrationBoundary } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from '../components/App';
 import { store } from '../store';
 import AuthPopup from '../components/Auth';
@@ -50,7 +49,7 @@ const NextApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <>
       <QueryClientProvider client={queryClientRef.current}>
-        <Hydrate state={pageProps.dehydratedState}>
+        <HydrationBoundary state={pageProps.dehydratedState}>
           <ReduxProvider store={store}>
             <ThemeProvider theme={theme || currentTheme}>
               <App setTheme={setTheme}>
@@ -59,7 +58,7 @@ const NextApp: FC<AppProps> = ({ Component, pageProps }) => {
               <AuthPopup />
             </ThemeProvider>
           </ReduxProvider>
-        </Hydrate>
+        </HydrationBoundary>
 
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

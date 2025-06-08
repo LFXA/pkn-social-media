@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { FC } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Avatar, H3, Spacing, Link, Text, Skeleton } from '../ui';
 import { Root, PersonContainer, Person, Heading } from './style';
 
@@ -21,10 +21,15 @@ const RightSideBar: FC = () => {
     data: onlineMembers,
     isFetching: isFetchingOnlineMembers,
     isRefetching: isReFetchingOnlineMembers,
-  } = useQuery('onlineUsers', fetchOnlineUsers, {
+  } = useQuery({
+    queryKey: ['onlineUsers'],
+    queryFn: fetchOnlineUsers,
     refetchInterval: REFETCH_INTERVAL,
   });
-  const { data: newMembers, isFetching: isFetchingNewMembers } = useQuery('newMembers', fetchNewMembers);
+  const { data: newMembers, isFetching: isFetchingNewMembers } = useQuery({
+    queryKey: ['newMembers'],
+    queryFn: fetchNewMembers,
+  });
 
   const noOnlineMembers = !onlineMembers || onlineMembers?.length === 0;
   const noNewMembers = !newMembers || newMembers?.length === 0;

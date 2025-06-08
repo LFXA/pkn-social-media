@@ -2,7 +2,7 @@ import { FC, FormEvent } from 'react';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { openAlert, AlertTypes } from '../../store/alert';
 import ChannelForm, { ChannelFormMode } from './ChannelForm';
 import { Channel } from '../../constants';
@@ -25,7 +25,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading, error } = useMutation(createChannel);
+  const { mutateAsync, isLoading, error } = useMutation({ mutationFn: createChannel });
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>, formValues: Channel) => {
     e.preventDefault();
@@ -34,7 +34,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
         ...formValues,
         order: channels.length > 0 ? channels.length : 0,
       });
-      queryClient.setQueryData('channels', (existingChannels: Channel[]) => [...existingChannels, channel]);
+      queryClient.setQueryData('channels', (existingChannels: Channel[]) => [...(existingChannels ?? []), channel]);
       closeModal();
       router.push(`/channel/${channel?.name}`);
       dispatch(

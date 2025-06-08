@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Root, IconContainer, Input } from './style';
 import { SearchIcon } from '../ui/icons';
 import SearchResult from './SearchResult';
@@ -41,7 +41,9 @@ const Search: FC<InputProps> = ({
       setIsDropdownOpen(false);
     }
   });
-  const { data, isFetching } = useQuery(['search', onlyUsers, searchQuery], search, {
+  const { data, isFetching } = useQuery({
+    queryKey: ['search', onlyUsers, searchQuery],
+    queryFn: search,
     enabled: searchQuery !== '',
   });
 

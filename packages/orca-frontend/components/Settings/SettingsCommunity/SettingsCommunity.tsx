@@ -2,7 +2,7 @@ import { FC, FormEvent, useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Divider, H2, H3, InputText, Spacing, Toggle, P } from '../../ui';
 import { PrimaryColor, PrimaryColorPreview, CommunityLogoContainer, CommunityLogo, LabelAndToggle } from './style';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import UploadLogo from './UploadLogo';
 import { RootState } from '../../../store';

@@ -1,6 +1,6 @@
 import { FC, FormEvent, useState } from 'react';
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
 import { Button, Divider, H2, InputText, Spacing, Text } from '../../ui';
 import { AlertTypes, openAlert } from '../../../store/alert';

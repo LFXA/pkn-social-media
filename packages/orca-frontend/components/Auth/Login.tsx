@@ -4,7 +4,7 @@ import { closeAuthPopup, setAuthUser, PopupType, openAuthPopup, setToken } from 
 import { Container, InputText, Button, Spacing, Text, LinkButton } from '../ui';
 import { RootState } from '../../store';
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { Config, Cookies, setCookie } from '../../utils';
 import { SocialButton, Or, Bottom } from './style';
 import { GithubIcon, GoogleIcon, FacebookIcon } from '../ui/icons';
@@ -31,7 +31,7 @@ const Login: FC = () => {
   );
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const { mutateAsync: logInMutation } = useMutation(logIn);
+  const { mutateAsync: logInMutation } = useMutation({ mutationFn: logIn });
   const [values, setValues] = useState(INITIAL_STATE);
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, InputText, Button, Spacing, Text, H1 } from '../ui';
 import { RootState } from '../../store';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { setAuthUser, setToken } from '../../store/auth';
 import { Cookies, setCookie } from '../../utils';
 

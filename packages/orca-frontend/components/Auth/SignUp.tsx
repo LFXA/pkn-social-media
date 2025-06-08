@@ -5,7 +5,7 @@ import { Container, InputText, Button, Spacing, Text, LinkButton } from '../ui';
 import { SuccessContainer, SocialButton, Or, Bottom } from './style';
 import { RootState } from '../../store';
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { GoogleIcon, FacebookIcon, GithubIcon, SuccessIcon } from '../ui/icons';
 import { Config, Cookies, setCookie } from '../../utils';
 

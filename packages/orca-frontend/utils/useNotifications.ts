@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RootState } from '../store';
 import { Events } from '../constants';
 import useSocket from './useSocket';

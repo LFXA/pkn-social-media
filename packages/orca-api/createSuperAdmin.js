@@ -25,12 +25,7 @@ if (!email.match(emailRegex)) {
 
 async function connectToDb() {
   try {
-    const client = await mongoose.connect(process.env.MONGO_URL, {
-      useCreateIndex: true,
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useUnifiedTopology: true,
-    });
+    const client = await mongoose.connect(process.env.MONGO_URL);
     return client.connection.db;
   } catch (error) {
     console.log('DB connection failed', error);

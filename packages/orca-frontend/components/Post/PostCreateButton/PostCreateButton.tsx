@@ -3,7 +3,7 @@ import { Button, Avatar } from '../../ui';
 import { Root, Container } from './style';
 import PostCreate from '../../PostCreate';
 import { Channel } from '../../../constants';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { AlertTypes, openAlert } from '../../../store/alert';
 import { RootState } from '../../../store';

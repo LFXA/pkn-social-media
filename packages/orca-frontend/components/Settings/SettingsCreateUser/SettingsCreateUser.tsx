@@ -1,7 +1,7 @@
 import { FC, useState, FormEvent, useEffect } from 'react';
 import { Modal, Button, Text, Spacing, InputText, Select } from '../../ui';
 import { openAlert, AlertTypes } from '../../../store/alert';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserRole } from '../../../constants';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';

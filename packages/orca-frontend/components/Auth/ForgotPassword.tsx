@@ -4,7 +4,7 @@ import { PopupType, openAuthPopup } from '../../store/auth';
 import { Container, InputText, Button, Spacing, Text, LinkButton } from '../ui';
 import { RootState } from '../../store';
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 
 const forgotPassword = async (email: string) => {
   const response = await axios.post('/forgot-password', { email });

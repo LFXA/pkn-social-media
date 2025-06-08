@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import Notification from '../components/Notification';
 import { Empty, Container, Skeleton, Spacing, Button, Text } from '../components/ui';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { RootState } from '../store';
 import { openAuthPopup, PopupType } from '../store/auth';
 import Seo from '../components/Seo';
@@ -22,7 +22,9 @@ const fetchUserNotifications = async (): Promise<any> => {
 
 const NotificationsPage: FC = () => {
   const authUser = useSelector((state: RootState) => state.auth.user);
-  const { data: notifications, isFetching } = useQuery('fetchUserNotifications', fetchUserNotifications, {
+  const { data: notifications, isFetching } = useQuery({
+    queryKey: ['fetchUserNotifications'],
+    queryFn: fetchUserNotifications,
     enabled: authUser !== null,
   });
   const { mutateAsync } = useMutation(updateNotificationSeen);

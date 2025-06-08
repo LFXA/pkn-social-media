@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import debounce from 'lodash/debounce';
 import { openAuthPopup, PopupType } from '../../store/auth';
 import { LikeIcon } from '../ui/icons';

@@ -1,7 +1,7 @@
 import { useState, forwardRef, ForwardRefRenderFunction, useRef, RefObject, useEffect } from 'react';
 import Router from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { updateNotificationSeen } from '../../pages/notifications';
 import {

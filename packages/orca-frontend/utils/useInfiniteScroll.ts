@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 interface useInfiniteScrollProps {
   key: any;
@@ -21,11 +21,12 @@ const useInfiniteScroll = ({
   apiCall,
   enabled = true,
 }: useInfiniteScrollProps): useInfiniteScrollReturnType => {
-  const { data, fetchNextPage, isFetching, isFetchingNextPage, refetch } = useInfiniteQuery(key, apiCall, {
-    getNextPageParam: (lastPage: unknown[], pages) => {
-      return lastPage.length > 0 ? pages.length * dataLimit : undefined;
-    },
+  const { data, fetchNextPage, isFetching, isFetchingNextPage, refetch } = useInfiniteQuery({
+    queryKey: key,
+    queryFn: ({ pageParam = 0 }) => apiCall(pageParam),
+    getNextPageParam: (lastPage, allPages) => (lastPage.length > 0 ? allPages.length * dataLimit : undefined),
     enabled,
+    initialPageParam: 0,
   });
 
   useEffect(() => {

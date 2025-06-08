@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import debounce from 'lodash/debounce';
-import { useMutation } from 'react-query';
+import { useMutation } from '@tanstack/react-query';
 import { RootState } from '../../store';
 import { addUserFollowing, removeUserFollowing } from '../../store/auth';
 import { AuthUser } from '../../constants';
@@ -31,8 +31,8 @@ const Follow: FC<FollowProps> = ({ user, queryKey }) => {
   const dispatch = useDispatch();
 
   const { createNotification, deleteNotification } = useNotifications();
-  const { mutateAsync: createFollowMutation } = useMutation(createFollow);
-  const { mutateAsync: deleteFollowMutation } = useMutation(deleteFollow);
+  const { mutateAsync: createFollowMutation } = useMutation({ mutationFn: createFollow });
+  const { mutateAsync: deleteFollowMutation } = useMutation({ mutationFn: deleteFollow });
 
   const followMutation = async () => {
     const follow = isFollowing

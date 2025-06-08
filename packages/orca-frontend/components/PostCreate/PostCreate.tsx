@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState, Fragment } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CloseIcon } from '../ui/icons';
 import PostImageUpload from './PostImageUpload';
 import { MaxImageSize, Channel } from '../../constants';
