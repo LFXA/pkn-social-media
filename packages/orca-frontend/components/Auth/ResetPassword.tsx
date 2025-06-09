@@ -30,7 +30,7 @@ const ResetPassword: FC = () => {
   const { isPopupOpen, popupType } = useSelector((state: RootState) => state.auth);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const { mutateAsync: resetPasswordMutation } = useMutation(resetPassword);
+  const { mutateAsync: resetPasswordMutation } = useMutation({ mutationFn:resetPassword});
   const [values, setValues] = useState(INITIAL_STATE);
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {

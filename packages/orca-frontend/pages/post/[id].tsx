@@ -18,7 +18,11 @@ interface ProfilePageProps {
 }
 
 const PostPage: FC<ProfilePageProps> = ({ post }) => {
-  const { data, refetch } = useQuery(['post', post._id], fetchPost, { initialData: post });
+  const { data, refetch } = useQuery({
+  queryKey: ['post', post._id],
+  queryFn: fetchPost,
+  initialData: post,
+});
 
   return (
     <Layout hideRightSidebar marginTop="none">

@@ -14,7 +14,7 @@ interface UploadToCloudinaryPayload {
 }
 
 export const uploadToCloudinary = async (
-  stream: any,
+  buffer: Buffer,
   folder: string,
   imagePublicId?: string
 ): Promise<UploadToCloudinaryPayload> => {
@@ -22,14 +22,14 @@ export const uploadToCloudinary = async (
   const options = imagePublicId ? { public_id: imagePublicId, overwrite: true } : { public_id: `${folder}/${uuid()}` };
 
   return new Promise((resolve, reject) => {
-    const streamLoad = cloudinary.uploader.upload_stream(options, (error, result) => {
+    const uploadStream = cloudinary.uploader.upload_stream(options, (error, result) => {
       if (result) {
         resolve(result);
       } else {
         reject(error);
       }
     });
-    return streamifier.createReadStream(stream.buffer).pipe(streamLoad);
+    return streamifier.createReadStream(buffer).pipe(uploadStream);
   });
 };
 

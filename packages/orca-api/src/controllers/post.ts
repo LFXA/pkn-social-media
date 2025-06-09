@@ -40,7 +40,7 @@ const PostController = {
   create: async (req: Request, res: Response): Promise<any> => {
     const authUser = req.user as AuthUser;
     const { title, channelId } = req.body;
-    const image = req.file;
+    const image = req.files?.image;
 
     if (!title && !image) {
       return res.status(400).send('Post title or image is required.');
@@ -52,7 +52,7 @@ const PostController = {
     let imageUrl: string;
     let imagePublicId: string;
     if (image) {
-      const uploadImage = await uploadToCloudinary(image, 'post');
+      const uploadImage = await uploadToCloudinary(image.data, 'post');
       if (!uploadImage.secure_url) {
         return res.status(ErrorCodes.Internal).send(ErrorMessages.Generic);
       }
@@ -65,7 +65,7 @@ const PostController = {
   update: async (req: Request, res: Response): Promise<any> => {
     const authUser = req.user as AuthUser;
     const { postId, title, imageToDeletePublicId, channelId } = req.body;
-    const image = req.file;
+    const image = req.files?.image;
 
     // Super Admins can update another user's post.
     if (authUser.role !== UserRole.SuperAdmin) {

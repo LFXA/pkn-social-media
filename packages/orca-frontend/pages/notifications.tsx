@@ -27,7 +27,7 @@ const NotificationsPage: FC = () => {
     queryFn: fetchUserNotifications,
     enabled: authUser !== null,
   });
-  const { mutateAsync } = useMutation(updateNotificationSeen);
+  const { mutateAsync } = useMutation({ mutationFn:updateNotificationSeen});
   const dispatch = useDispatch();
 
   const openAuthModal = () => {

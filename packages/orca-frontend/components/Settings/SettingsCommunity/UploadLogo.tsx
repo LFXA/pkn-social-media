@@ -25,15 +25,15 @@ const uploadLogo = async ({ image, imagePublicId }) => {
 const UploadLogo: FC<UploadImageProps> = ({ imagePublicId }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const { mutateAsync } = useMutation(uploadLogo);
+  const { mutateAsync } = useMutation({mutationFn:uploadLogo});
 
-  const handleChange = async (e: ChangeEvent) => {
-    const file = (e.target as HTMLInputElement).files[0];
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file =  e.target.files?.[0];
 
     if (!file) return;
     if (!file.type.match(/image-*/)) return;
     if (file.size >= MaxImageSize.Post) {
-      alert(`File size should be less than ${MaxImageSize.Post / 1000000}MB`);
+      alert(`File size should be less than ${MaxImageSize.Post / 1_000_000}MB`);
       return;
     }
 
@@ -50,9 +50,8 @@ const UploadLogo: FC<UploadImageProps> = ({ imagePublicId }) => {
       console.error('An error occurred while uploading an image: ', error);
     } finally {
       setIsLoading(false);
+       e.target.value = '';
     }
-
-    (e.target as HTMLInputElement) = null;
   };
 
   return (

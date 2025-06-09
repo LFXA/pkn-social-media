@@ -6,7 +6,9 @@ interface RootProps {
   isOpen: boolean;
 }
 
-export const Root = styled.div<RootProps>`
+export const Root = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})<RootProps>`
   position: fixed;
   top: ${Layout.HEADER_HEIGHT}px;
   left: 0;
@@ -54,7 +56,9 @@ interface ThreeDotsProps {
   isOpen: boolean;
 }
 
-export const ThreeDots = styled.div<ThreeDotsProps>`
+export const ThreeDots = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})<ThreeDotsProps>`
   ${(p) => !p.isOpen && 'opacity: 0;'};
 `;
 
@@ -84,7 +88,9 @@ interface LIProps {
   noHover?: boolean;
 }
 
-export const LI = styled.li<LIProps>`
+export const LI = styled.li.withConfig({
+  shouldForwardProp: (prop) => prop !== 'noHover', // prevent forwarding noHover to <li>
+})<LIProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

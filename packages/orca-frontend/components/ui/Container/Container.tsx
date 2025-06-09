@@ -3,7 +3,7 @@ import { GeneralColors, Radius, Shadows, Spacing, Screen, ZIndex } from '../../.
 import { Root } from './style';
 
 export interface ContainerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   marginTop?: Spacing;
   maxWidth?: Screen;
   padding?: Spacing;
@@ -17,12 +17,10 @@ export interface ContainerProps {
   centered?: boolean;
 }
 
-const Container: ForwardRefRenderFunction<HTMLDivElement, ContainerProps> = ({ children, ...props }, ref) => {
-  return (
+const Container: ForwardRefRenderFunction<HTMLDivElement, ContainerProps> = ({ children, ...props }, ref) =>  (
     <Root {...props} ref={ref}>
       {children}
     </Root>
   );
-};
 
 export default forwardRef(Container);

@@ -29,13 +29,13 @@ const Confirm: FC<ConfirmProps> = ({
       <Root>
         {children}
         <ButtonContainer>
-          <Button type="button" text color="primary" onClick={close}>
-            {cancelText}
+          <Button type="button" text color="primary" onClick={close} >
+            Cancel
           </Button>
 
           <Spacing left="xs">
             <Button type="submit" color="primary" onClick={onConfirm}>
-              {confirmText}
+              Delete
             </Button>
           </Spacing>
         </ButtonContainer>

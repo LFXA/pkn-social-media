@@ -20,8 +20,10 @@ interface InputProps {
   isDropdownOpen?: boolean;
   focused?: boolean;
 }
+const shouldForwardProp = (prop: string) =>
+  !['hideIcon', 'backgroundColor', 'hideBorder', 'radius', 'isDropdownOpen', 'focused'].includes(prop);
 
-export const Input = styled.input<InputProps>`
+export const Input = styled.input.withConfig({ shouldForwardProp })<InputProps>`
   outline: 0;
   height: 40px;
   width: 100%;

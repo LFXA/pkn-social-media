@@ -25,7 +25,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
-  const { mutateAsync, isLoading, error } = useMutation({ mutationFn: createChannel });
+  const { mutateAsync, isPending, error } = useMutation({ mutationFn: createChannel });
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>, formValues: Channel) => {
     e.preventDefault();
@@ -53,7 +53,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
       closeModal={closeModal}
       apiErrorMessage={error as string}
       onSubmit={onSubmit}
-      loading={isLoading}
+      loading={isPending}
       mode={ChannelFormMode.Create}
     />
   );

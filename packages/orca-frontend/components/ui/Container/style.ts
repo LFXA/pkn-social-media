@@ -1,7 +1,22 @@
 import styled from 'styled-components';
 import { ContainerProps } from './Container';
+const shouldForwardProp = (prop: string) =>
+  ![
+    'marginTop',
+    'maxWidth',
+    'zIndex',
+    'padding',
+    'radius',
+    'bordered',
+    'bgColor',
+    'shadow',
+    'centered',
+    'hideRightSidebar',
+    'paddingVertical',
+    'paddingHorizontal',
+  ].includes(prop);
 
-export const Root = styled.div<ContainerProps>`
+export const Root = styled.div.withConfig({ shouldForwardProp })<ContainerProps>`
   position: relative;
   margin: 0 auto;
   margin-top: ${(p) => (p.marginTop ? p.theme.spacing[p.marginTop] : 0)};

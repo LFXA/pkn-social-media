@@ -74,7 +74,9 @@ interface LikeAndCommentsCountProps {
   hadData: string;
 }
 
-export const LikeAndCommentsCount = styled.div<LikeAndCommentsCountProps>`
+export const LikeAndCommentsCount = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'hadData',
+})<LikeAndCommentsCountProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -92,7 +94,9 @@ interface LikeAndCommentButtonsProps {
   isCommentSectionOpen: boolean;
 }
 
-export const LikeAndCommentButtons = styled.div<LikeAndCommentButtonsProps>`
+export const LikeAndCommentButtons = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'isCommentSectionOpen',
+})<LikeAndCommentButtonsProps>`
   display: flex;
   flex-direction: row;
   align-items: stretch;

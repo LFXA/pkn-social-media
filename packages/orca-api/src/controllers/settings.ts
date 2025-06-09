@@ -86,8 +86,8 @@ const SettingsController = {
     return res.send('Password updated successfully.');
   },
   uploadLogo: async (req: Request, res: Response): Promise<any> => {
-    const { imagePublicId } = req.body;
-    const image = req.file;
+    const imagePublicId = req.body.imagePublicId;
+    const image = req.files?.image;
 
     if (!image) {
       return res.status(ErrorCodes.Bad_Request).send('Please upload an image.');
@@ -96,7 +96,7 @@ const SettingsController = {
       return res.status(ErrorCodes.Bad_Request).send('Please upload an image.');
     }
 
-    const uploadImage = await uploadToCloudinary(image, 'community', imagePublicId);
+    const uploadImage = await uploadToCloudinary(image.data, 'community', imagePublicId);
     if (uploadImage.secure_url) {
       const updatedUser = await updateLogo(uploadImage.secure_url, uploadImage.public_id);
       return res.send(updatedUser);

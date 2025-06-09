@@ -71,14 +71,13 @@ export const createNotification = async (
     .populate('author')
     .populate('follow')
     .populate({ path: 'comment', populate: { path: 'post' } })
-    .populate({ path: 'like', populate: { path: 'post' } })
-    .execPopulate();
+    .populate({ path: 'like', populate: { path: 'post' } });
 
   return newNotification;
 };
 
 export const deleteNotification = async (id: string): Promise<any> => {
-  let notification = await Notification.findByIdAndRemove(id);
+  let notification = await Notification.findByIdAndDelete(id);
 
   // Delete the notification from the user's collection.
   await User.findOneAndUpdate({ _id: notification.user }, { $pull: { notifications: notification._id } });
@@ -87,8 +86,7 @@ export const deleteNotification = async (id: string): Promise<any> => {
     .populate('author')
     .populate('follow')
     .populate({ path: 'comment', populate: { path: 'post' } })
-    .populate({ path: 'like', populate: { path: 'post' } })
-    .execPopulate();
+    .populate({ path: 'like', populate: { path: 'post' } });
 
   return notification;
 };

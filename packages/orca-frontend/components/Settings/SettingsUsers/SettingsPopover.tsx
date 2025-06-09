@@ -23,7 +23,7 @@ const SettingsPopover: FC<SettingsPopoverProps> = ({ userId, banned, searchQuery
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  const { mutateAsync } = useMutation(banUser);
+  const { mutateAsync } = useMutation({mutationFn:banUser});
 
   const userBan = async () => {
     try {

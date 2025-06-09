@@ -26,7 +26,7 @@ const ChannelEdit: FC<ChannelEditProps> = ({ channel, closeModal }) => {
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  const { mutateAsync, isLoading, error } = useMutation({ mutationFn: updateChannel });
+  const { mutateAsync, isPending, error } = useMutation({ mutationFn: updateChannel });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>, formValues: IChannelForm) => {
     try {
@@ -55,7 +55,7 @@ const ChannelEdit: FC<ChannelEditProps> = ({ channel, closeModal }) => {
       closeModal={closeModal}
       channel={channel}
       onSubmit={handleSubmit}
-      loading={isLoading}
+      loading={isPending}
       mode={ChannelFormMode.Edit}
     />
   );

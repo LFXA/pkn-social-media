@@ -15,7 +15,7 @@ export const createComment = async (comment: string, authorId: string, postId: s
     post: postId,
   }).save();
 
-  await newComment.populate('author').execPopulate();
+  await newComment.populate('author');
 
   // Push the comment to post and user collection.
   await Post.findOneAndUpdate({ _id: postId }, { $push: { comments: newComment._id } });
@@ -25,7 +25,7 @@ export const createComment = async (comment: string, authorId: string, postId: s
 };
 
 export const deleteComment = async (id: string): Promise<any> => {
-  const comment = await Comment.findByIdAndRemove(id);
+  const comment = await Comment.findByIdAndDelete(id);
 
   // Delete the comment from the user and post collection.
   await User.findOneAndUpdate({ _id: comment.author }, { $pull: { comments: comment._id } });

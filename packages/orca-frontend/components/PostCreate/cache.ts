@@ -23,34 +23,47 @@ export const updatePostsByFollowingAndAuthorIdCache = ({
   operation,
   post,
 }: updateCacheProps) => {
-  if (operation === 'create') {
-    queryClient.setQueryData(queryKey, (existingPosts: any) => {
+ queryClient.setQueryData(queryKey, (existingPosts: any) => {
+    if (!existingPosts || !existingPosts.pages) {
+      // Return default empty shape if no existing cache
+      return {
+        pages: [[post]],
+        pageParams: [0],
+      };
+    }
+
+    if (operation === 'create') {
+      const firstPage = Array.isArray(existingPosts.pages[0])
+        ? existingPosts.pages[0]
+        : [];
+
       return {
         ...existingPosts,
-        pages: [[post], ...existingPosts.pages],
+        pages: [
+          [post, ...firstPage],
+          ...existingPosts.pages.slice(1),
+        ],
+        pageParams: existingPosts.pageParams ?? [0],
       };
-    });
-    return;
-  }
+    }
 
-  queryClient.setQueryData(queryKey, (existingPosts: any) => {
+    // Update operation
     return {
       ...existingPosts,
-      pages: existingPosts.pages.map((posts: Post[]) => {
-        return posts.map((p: Post) => {
-          if (p._id === post._id) {
-            return {
-              ...p,
-              title: post.title,
-              image: post.image,
-              imagePublicId: post.imagePublicId,
-              channelId: post.channel._id,
-            };
-          } else {
-            return p;
-          }
-        });
-      }),
+      pages: existingPosts.pages.map((posts: Post[]) =>
+        posts.map((p: Post) =>
+          p._id === post._id
+            ? {
+                ...p,
+                title: post.title,
+                image: post.image,
+                imagePublicId: post.imagePublicId,
+                channelId: post.channel._id,
+              }
+            : p
+        )
+      ),
+      pageParams: existingPosts.pageParams ?? [0],
     };
   });
 };
@@ -126,6 +139,7 @@ export const updateCache = ({
       break;
     case 'postsByChannelName':
       updatePostsByChannelName({ queryKey, queryClient, operation, post, notAddingToCurrentChannel });
+      break;
     default:
       break;
   }

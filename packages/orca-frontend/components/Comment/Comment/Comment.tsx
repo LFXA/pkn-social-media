@@ -24,14 +24,14 @@ interface CommentProps {
 const Comment: FC<CommentProps> = ({ comment, author, queryKey, post }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const authUser = useSelector((state: RootState) => state.auth.user);
-  const { mutateAsync } = useMutation(deleteComment);
+  const { mutateAsync } = useMutation({mutationFn:deleteComment});
   const queryClient = useQueryClient();
   const { deleteNotification } = useNotifications();
 
   const remove = async () => {
     try {
       const deletedComment = await mutateAsync(comment._id);
-      queryClient.setQueryData(queryKey, (existingPosts: any) => {
+      queryClient.setQueryData([queryKey], (existingPosts: any) => {
         if (!existingPosts.pages) {
           return {
             ...existingPosts,

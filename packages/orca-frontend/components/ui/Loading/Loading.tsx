@@ -41,7 +41,17 @@ interface LoadingProps {
   size?: FontSize;
 }
 
-export const Loading = styled.div<LoadingProps>`
+const shouldForwardProp = (prop: string) =>
+  ![
+    'top',
+    'bottom',
+    'size',
+    'color'
+  ].includes(prop);
+
+
+
+export const Loading = styled.div.withConfig({ shouldForwardProp })<LoadingProps>`
   text-indent: -9999em;
   overflow: hidden;
   width: 1em;

@@ -116,7 +116,7 @@ export const createMessage = async (message: string, sender: string, receiver: s
     receiver,
   }).save();
 
-  newMessage = await newMessage.populate('sender').populate('receiver').execPopulate();
+  newMessage = await  newMessage.populate([{ path: 'sender' }, { path: 'receiver' }]);
 
   // Check if user already had a conversation. If not push their ids to users collection.
   const senderUser = await User.findById(sender);

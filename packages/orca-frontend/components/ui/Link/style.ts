@@ -10,7 +10,10 @@ interface AProps {
   block: boolean;
 }
 
-export const A = styled.a<AProps>`
+export const A = styled.div.withConfig({
+  shouldForwardProp: (prop) =>
+    !['weight', 'size', 'color', 'disableBorderOnHover', 'fullWidth', 'block'].includes(prop),
+})<AProps>`
   cursor: pointer;
   text-decoration: none;
   transition: color 0.1s;
@@ -46,7 +49,9 @@ interface ButtonAProps {
   hasHover?: boolean;
 }
 
-export const ButtonA = styled.a<ButtonAProps>`
+export const ButtonA = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['fullWidth', 'center', 'active', 'hasHover', 'weight', 'size', 'color', 'radius'].includes(prop),
+})<ButtonAProps>`
   font-size: ${(p) => p.theme.font.size.md};
   padding: ${(p) => p.theme.spacing.xs};
   border-radius: ${(p) => (p.radius ? p.theme.radius[p.radius] : p.theme.radius.sm)};

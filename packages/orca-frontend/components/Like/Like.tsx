@@ -41,12 +41,12 @@ const Like: FC<LikeProps> = ({ withText, fullWidth, hasLiked, post, queryKey }) 
   const queryClient = useQueryClient();
   const { createNotification, deleteNotification } = useNotifications();
 
-  const { mutateAsync: createLikeMutation } = useMutation(createLike);
-  const { mutateAsync: deleteLikeMutation } = useMutation(deleteLike);
+  const { mutateAsync: createLikeMutation } = useMutation({ mutationFn: createLike});
+  const { mutateAsync: deleteLikeMutation } = useMutation({ mutationFn: deleteLike});
 
   const updateAfterLike = (like) => {
-    queryClient.setQueryData(queryKey, (existingPosts: any) => {
-      if (!existingPosts.pages) {
+    queryClient.setQueryData(Array.isArray(queryKey) ? queryKey : [queryKey], (existingPosts: any) => {
+      if (!existingPosts || !existingPosts.pages) {
         return {
           ...existingPosts,
           likes: [like, ...existingPosts.likes],
@@ -72,7 +72,7 @@ const Like: FC<LikeProps> = ({ withText, fullWidth, hasLiked, post, queryKey }) 
   };
 
   const updateAfterUnLike = (likeId) => {
-    queryClient.setQueryData(queryKey, (existingPosts: any) => {
+    queryClient.setQueryData(Array.isArray(queryKey) ? queryKey : [queryKey], (existingPosts: any) => {
       if (!existingPosts.pages) {
         return {
           ...existingPosts,
@@ -118,7 +118,7 @@ const Like: FC<LikeProps> = ({ withText, fullWidth, hasLiked, post, queryKey }) 
         });
       }
     } catch (error) {
-      console.error('Error while trying to crate or delete a like', error);
+      console.error('Error while trying to create or delete a like', error);
     }
   };
 

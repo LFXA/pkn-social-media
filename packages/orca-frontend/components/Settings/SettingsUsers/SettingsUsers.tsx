@@ -38,7 +38,9 @@ const fetchUsersTotal = async () => {
 const SettingsUsers: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
-  const { data: usersTotal, isFetching: isFetchingTotal } = useQuery('usersTotal', fetchUsersTotal);
+  const { data: usersTotal, isFetching: isFetchingTotal } = useQuery({
+    queryKey: ['usersTotal'],
+    queryFn: fetchUsersTotal});
   const {
     data: users,
     isFetching,

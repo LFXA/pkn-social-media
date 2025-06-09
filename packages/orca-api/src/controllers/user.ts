@@ -28,7 +28,7 @@ const UserController = {
   uploadPhoto: async (req: Request, res: Response): Promise<any> => {
     const { imagePublicId, coverImagePublicId, isCover } = req.body;
     const authUser = req.user as AuthUser;
-    const image = req.file;
+    const image = req.files?.image;
 
     if (!image) {
       return res.status(ErrorCodes.Bad_Request).send('Please upload an image.');
@@ -38,7 +38,7 @@ const UserController = {
     }
 
     const coverOrImagePublicId = isCover === 'true' ? coverImagePublicId : imagePublicId;
-    const uploadImage = await uploadToCloudinary(image, 'user', coverOrImagePublicId);
+    const uploadImage = await uploadToCloudinary(image.data, 'user', coverOrImagePublicId);
 
     if (uploadImage.secure_url) {
       const fieldsToUpdate: any = {};

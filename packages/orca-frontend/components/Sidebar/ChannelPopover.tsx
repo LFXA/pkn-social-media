@@ -39,7 +39,7 @@ const ChannelPopover: FC<ChannelPopoverProps> = ({ channel }) => {
     try {
       const deletedChannel = await mutateAsync(id);
 
-      queryClient.setQueryData('channels', (existingChannels: Channel[]) => {
+      queryClient.setQueryData(['channels'], (existingChannels: Channel[]) => {
         return existingChannels.filter((channel) => channel._id !== deletedChannel._id);
       });
 

@@ -15,8 +15,9 @@ interface LinkProps {
 }
 
 const Link: FC<LinkProps> = ({ href, children, weight, size, color, disableBorderOnHover, fullWidth, block }) => {
+
   return (
-    <NextLink href={href}>
+    <NextLink href={href} passHref>
       <A
         weight={weight}
         size={size}

@@ -22,7 +22,9 @@ interface HeadingProps {
   hideTitleBorder?: boolean;
 }
 
-export const Heading = styled.div<HeadingProps>`
+export const Heading = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'hideTitleBorder',
+})<HeadingProps>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

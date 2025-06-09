@@ -68,7 +68,8 @@ export type SettingsActionTypes =
   | setIsEmailVerificationRequiredActionType
   | setFacebookLoginEnabledActionType
   | setGoogleLoginEnabledActionType
-  | setGithubLoginEnabledActionType;
+  | setGithubLoginEnabledActionType
+  | any;
 
 // Actions
 export const setCommunityName = (name: string): SettingsActionTypes => {

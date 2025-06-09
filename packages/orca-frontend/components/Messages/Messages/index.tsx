@@ -37,11 +37,15 @@ const Messages: FC<MessagesProps> = ({ userId }) => {
   const router = useRouter();
   const authUser = useSelector((state: RootState) => state.auth.user);
   const queryClient = useQueryClient();
-  const { data: conversations, isFetching: isConversationFetching } = useQuery(['conversations'], fetchConversations);
-  const { data: user } = useQuery(['userById', userId], fetchUser, {
-    enabled: userId !== undefined,
+  const { data: conversations, isFetching: isConversationFetching } = useQuery({
+  queryKey: ['conversations'],
+  queryFn: fetchConversations,
   });
-  const { mutateAsync: updateSeen } = useMutation(updateMessageSeen);
+  const { data: user } = useQuery({
+  queryKey: ['userById', userId],
+  queryFn: fetchUser,
+  enabled: !!userId});
+  const { mutateAsync: updateSeen } = useMutation({ mutationFn:updateMessageSeen});
 
   useEffect(() => {
     if (!conversations || (conversations && conversations.length === 0) || !userId) {

@@ -20,7 +20,7 @@ const Home: FC = () => {
   const dispatch = useDispatch();
   const authUser = useSelector((state: RootState) => state.auth.user);
   const { data, isFetching, isFetchingNextPage } = useInfiniteScroll({
-    key: 'postsByFollowing',
+    key: ['postsByFollowing'],
     apiCall: fetchPostsByFollowing,
     enabled: authUser !== null,
     dataLimit: DataLimit.PostsByFollowing,

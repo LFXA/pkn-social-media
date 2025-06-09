@@ -56,11 +56,13 @@ const MessagesChat: FC<MessagesChatProps> = ({ onSearchItemClick, userId, user }
   const scrollToBottomRef = useRef(null);
   const authUser = useSelector((state: RootState) => state.auth.user);
   const queryClient = useQueryClient();
-  const { data: messages } = useQuery(['messages', userId], fetchMessages, {
+  const { data: messages } = useQuery({
+    queryKey: ['messages', userId],
+    queryFn: fetchMessages,
     enabled: userId !== undefined,
-  });
-  const { mutateAsync: sendMessage } = useMutation(createMessage);
-  const { mutateAsync: updateMessagesSeenMutation } = useMutation(updateMessagesSeen);
+});
+  const { mutateAsync: sendMessage } = useMutation({mutationFn: createMessage});
+  const { mutateAsync: updateMessagesSeenMutation } = useMutation({mutationFn: updateMessagesSeen});
   const socket = useSocket();
   const dispatch = useDispatch();
   const { createNotification } = useNotifications();

@@ -31,7 +31,7 @@ const SettingsAccount: FC = () => {
     fullName: null,
     username: null,
   });
-  const { mutateAsync, isLoading } = useMutation(updateAccountSettings);
+  const { mutateAsync, isPending } = useMutation({mutationFn:updateAccountSettings});
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -118,7 +118,7 @@ const SettingsAccount: FC = () => {
           {apiError && <Text color="error">{apiError}</Text>}
         </Spacing>
 
-        <Button color="primary" type="submit" disabled={errors.fullName || errors.username || isLoading}>
+        <Button color="primary" type="submit" disabled={errors.fullName || errors.username || isPending}>
           Save changes
         </Button>
       </form>

@@ -23,32 +23,42 @@ const useInfiniteScroll = ({
 }: useInfiniteScrollProps): useInfiniteScrollReturnType => {
   const { data, fetchNextPage, isFetching, isFetchingNextPage, refetch } = useInfiniteQuery({
     queryKey: key,
-    queryFn: ({ pageParam = 0 }) => apiCall(pageParam),
+    queryFn: apiCall,
     getNextPageParam: (lastPage, allPages) => (lastPage.length > 0 ? allPages.length * dataLimit : undefined),
     enabled,
     initialPageParam: 0,
   });
+ 
+  const debounce = (func: () => void, wait = 200) => {
+    let timeout: NodeJS.Timeout;
+    return () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(func, wait);
+    };
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
+useEffect(() => {
+    const onScroll = debounce(() => {
+      if (!data) return;
+
       const windowHeight = window.innerHeight;
       const scrollTop = document.documentElement.scrollTop;
       const offsetHeight = document.documentElement.offsetHeight;
       const scrolled = windowHeight + scrollTop > offsetHeight - offsetHeight / 3;
 
-      if (data?.pages[data?.pages.length - 1].length === 0) {
-        window.removeEventListener('scroll', handleScroll);
+      if (data.pages[data.pages.length - 1].length === 0) {
+        window.removeEventListener('scroll', onScroll);
         return;
       }
 
       if (scrolled) {
         fetchNextPage();
       }
-    };
+    }, 150);
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, [data, fetchNextPage]);
 
   return { data, isFetching, isFetchingNextPage, refetch };

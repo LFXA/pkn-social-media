@@ -48,6 +48,6 @@ export const reorderChannels = async (sortedChannels: any) => {
 };
 
 export const deleteChannel = async (id: string): Promise<any> => {
-  const deletedChannel = await Channel.findByIdAndRemove(id);
+  const deletedChannel = await Channel.findByIdAndDelete(id);
   return deletedChannel;
 };

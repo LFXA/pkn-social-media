@@ -18,7 +18,7 @@ const SettingsAuthentication: FC = () => {
     confirmPassword: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
-  const { mutateAsync, isLoading } = useMutation(updatePassword);
+  const { mutateAsync, isPending } = useMutation({mutationFn:updatePassword});
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,7 +87,7 @@ const SettingsAuthentication: FC = () => {
           {errorMessage && <Text color="error">{errorMessage}</Text>}
         </Spacing>
 
-        <Button color="primary" type="submit" disabled={isLoading}>
+        <Button color="primary" type="submit" disabled={isPending}>
           Save changes
         </Button>
       </form>

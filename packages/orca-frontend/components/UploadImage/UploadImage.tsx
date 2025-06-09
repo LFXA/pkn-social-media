@@ -29,7 +29,7 @@ const UploadImage: FC<UploadImageProps> = ({ isCover, setIsLoading }) => {
   const authUser = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
 
-  const { mutateAsync, isLoading: isFetching } = useMutation(createUploadImage);
+  const { mutateAsync, isPending: isFetching } = useMutation({mutationFn:createUploadImage});
 
   useEffect(() => {
     if (!isFetching) {

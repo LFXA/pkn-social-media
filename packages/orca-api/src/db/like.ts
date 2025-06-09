@@ -19,11 +19,12 @@ export const createLike = async (userId: string, postId: string): Promise<any> =
 };
 
 export const deleteLike = async (id: string): Promise<any> => {
-  const like = await Like.findByIdAndRemove(id);
-
+  const like = await Like.findByIdAndDelete(id);
+  if (!like) return null;
   // Delete the like from the user and post collection.
   await User.findOneAndUpdate({ _id: like.user }, { $pull: { likes: like._id } });
   await Post.findOneAndUpdate({ _id: like.post }, { $pull: { likes: like._id } });
 
   return like;
 };
+

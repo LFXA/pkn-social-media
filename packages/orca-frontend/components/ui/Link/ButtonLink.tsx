@@ -28,8 +28,9 @@ const ButtonLink: FC<ButtonLinkProps> = ({
   active,
   hasHover,
 }) => {
+
   return (
-    <NextLink href={href}>
+    <NextLink href={href} passHref>
       <ButtonA
         weight={weight}
         size={size}

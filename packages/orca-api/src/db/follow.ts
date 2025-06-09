@@ -21,7 +21,7 @@ export const createFollow = async (userId: string, followerId: string): Promise<
 };
 
 export const deleteFollow = async (id: string): Promise<any> => {
-  const follow = await Follow.findByIdAndRemove(id);
+  const follow = await Follow.findByIdAndDelete(id);
 
   // Delete the follow from the user's collection.
   await User.findOneAndUpdate({ _id: follow.user }, { $pull: { followers: follow.id } });

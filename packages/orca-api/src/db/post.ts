@@ -150,7 +150,10 @@ export const createPost = async (
     author: authorId,
   }).save();
 
-  await newPost.populate('channel').populate('author').execPopulate();
+  await newPost.populate([
+  { path: 'channel' },
+  { path: 'author' },
+]);
 
   // Push Post to Channel collection.
   await Channel.findOneAndUpdate({ _id: channelId }, { $push: { posts: newPost._id } });
@@ -210,7 +213,7 @@ export const updatePost = async (
 };
 
 export const deletePost = async (id: string): Promise<any> => {
-  const post = await Post.findByIdAndRemove(id);
+  const post = await Post.findByIdAndDelete(id);
 
   // Pull the post from the channel collection.
   await Channel.findOneAndUpdate({ _id: post.channel }, { $pull: { posts: post._id } });

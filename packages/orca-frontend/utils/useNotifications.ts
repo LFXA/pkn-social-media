@@ -22,8 +22,8 @@ const notificationDelete = async (id: string) => {
 
 const useNotifications = () => {
   const authUser = useSelector((state: RootState) => state.auth.user);
-  const { mutateAsync: createMutation } = useMutation(notificationCreate);
-  const { mutateAsync: deleteMutation } = useMutation(notificationDelete);
+  const { mutateAsync: createMutation } = useMutation({ mutationFn:notificationCreate});
+  const { mutateAsync: deleteMutation } = useMutation({ mutationFn: notificationDelete});
   const queryClient = useQueryClient();
   const socket = useSocket();
 
@@ -52,7 +52,7 @@ const useNotifications = () => {
         return;
       }
 
-      queryClient.setQueryData(queryKey, (existingPosts: any) => {
+      queryClient.setQueryData([queryKey], (existingPosts: any) => {
         if (!existingPosts.pages) {
           return {
             ...existingPosts,
@@ -92,7 +92,7 @@ const useNotifications = () => {
     try {
       const notification = await deleteMutation(id);
       socket.emit(Events.DELETE_NOTIFICATION, notification);
-      queryClient.setQueryData(queryKey, (existingPosts: any) => {
+      queryClient.setQueryData([queryKey], (existingPosts: any) => {
         if (!existingPosts.pages) {
           return {
             ...existingPosts,

@@ -43,7 +43,7 @@ const SettingsCommunity: FC = () => {
     communityName: null,
     primaryColor: null,
   });
-  const { mutateAsync, isLoading } = useMutation(updateCommunitySettings);
+  const { mutateAsync, isPending } = useMutation({mutationFn:updateCommunitySettings});
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -200,7 +200,7 @@ const SettingsCommunity: FC = () => {
         </CommunityLogoContainer>
 
         <Spacing top="md" />
-        <Button color="primary" type="submit" disabled={errors.communityName || errors.primaryColor || isLoading}>
+        <Button color="primary" type="submit" disabled={errors.communityName || errors.primaryColor || isPending}>
           Save changes
         </Button>
       </form>

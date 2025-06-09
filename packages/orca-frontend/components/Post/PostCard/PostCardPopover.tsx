@@ -50,8 +50,8 @@ const PostCardPopover: FC<PostCardPopoverProps> = ({
     setIsPopoverOpen(false);
   });
 
-  const { mutateAsync: deletePostMutation } = useMutation(deletePost);
-  const { mutateAsync: pinPostMutation } = useMutation(pinPost);
+  const { mutateAsync: deletePostMutation } = useMutation({ mutationFn:deletePost});
+  const { mutateAsync: pinPostMutation } = useMutation({ mutationFn:pinPost});
 
   const pin = async () => {
     try {

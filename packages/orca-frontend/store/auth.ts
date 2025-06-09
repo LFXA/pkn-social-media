@@ -124,7 +124,8 @@ export type AuthActionTypes =
   | removeUserFollowingAction
   | setSocketAction
   | addUserImageAction
-  | addUserCoverAction;
+  | addUserCoverAction
+  | any;
 
 // Actions
 export function setAuthUser(user: AuthUser): AuthActionTypes {

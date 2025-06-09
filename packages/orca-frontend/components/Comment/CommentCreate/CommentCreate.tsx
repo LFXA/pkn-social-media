@@ -22,7 +22,7 @@ interface CommentCreateProps {
 const CommentCreate: FC<CommentCreateProps> = ({ autoFocus, post, queryKey }) => {
   const authUser = useSelector((state: RootState) => state.auth.user);
   const [comment, setComment] = useState('');
-  const { mutateAsync } = useMutation(createComment);
+  const { mutateAsync } = useMutation({mutationFn:createComment});
   const queryClient = useQueryClient();
   const { createNotification } = useNotifications();
 
@@ -42,7 +42,7 @@ const CommentCreate: FC<CommentCreateProps> = ({ autoFocus, post, queryKey }) =>
       try {
         const newComment = await mutateAsync({ comment, postId: post._id });
 
-        queryClient.setQueryData(queryKey, (existingPosts: any) => {
+        queryClient.setQueryData([queryKey], (existingPosts: any) => {
           if (!existingPosts.pages) {
             return {
               ...existingPosts,

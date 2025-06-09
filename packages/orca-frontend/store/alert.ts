@@ -29,7 +29,7 @@ export interface CloseAlertAction {
   type: typeof CLOSE_ALERT;
 }
 
-export type AlertActionTypes = OpenAlertAction | CloseAlertAction;
+export type AlertActionTypes = OpenAlertAction | CloseAlertAction | any;
 
 // Actions
 export function openAlert(alert: Alert): AlertActionTypes {

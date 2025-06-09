@@ -33,7 +33,7 @@ const SignUp: FC = () => {
   );
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
-  const { mutateAsync: signUpMutation } = useMutation(signUp);
+  const { mutateAsync: signUpMutation } = useMutation({mutationFn: signUp});
   const [values, setValues] = useState(INITIAL_STATE);
   const [successResponse, setSuccessResponse] = useState('');
 

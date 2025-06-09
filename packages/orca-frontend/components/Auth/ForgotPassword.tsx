@@ -16,7 +16,7 @@ const ForgotPassword: FC = () => {
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const { mutateAsync: forgotPasswordMutation } = useMutation(forgotPassword);
+  const { mutateAsync: forgotPasswordMutation } = useMutation({ mutationFn:forgotPassword});
   const [email, setEmail] = useState('');
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {

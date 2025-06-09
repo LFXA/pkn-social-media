@@ -78,8 +78,8 @@ const PostCreate: FC<PostCreateProps> = ({
   };
   const [formValues, setFormValues] = useState<{ title: string; channelId: string; image: File }>(initialState);
   const [existingPostImage, setExistingPostImage] = useState(postImage);
-  const { mutateAsync: createPostMutation, isLoading: isPostCreateLoading } = useMutation(createPost);
-  const { mutateAsync: updatePostMutation, isLoading: isPostUpdateLoading } = useMutation(updatePost);
+  const { mutateAsync: createPostMutation, isPending: isPostCreateLoading } = useMutation({mutationFn:createPost});
+  const { mutateAsync: updatePostMutation, isPending: isPostUpdateLoading } = useMutation({mutationFn:updatePost});
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
