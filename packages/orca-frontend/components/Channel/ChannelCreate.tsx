@@ -34,7 +34,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
         ...formValues,
         order: channels.length > 0 ? channels.length : 0,
       });
-      queryClient.setQueryData('channels', (existingChannels: Channel[]) => [...(existingChannels ?? []), channel]);
+      queryClient.setQueryData(['channels'], (existingChannels: Channel[]) => [...(existingChannels ?? []), channel]);
       closeModal();
       router.push(`/channel/${channel?.name}`);
       dispatch(

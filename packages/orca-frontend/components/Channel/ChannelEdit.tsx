@@ -31,7 +31,7 @@ const ChannelEdit: FC<ChannelEditProps> = ({ channel, closeModal }) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>, formValues: IChannelForm) => {
     try {
       const updatedChannel = await mutateAsync({ _id: channel._id, ...formValues });
-      queryClient.setQueryData('channels', (existingChannels: Channel[]) => {
+      queryClient.setQueryData(['channels'], (existingChannels: Channel[]) => {
         return existingChannels.map((channel) =>
           channel._id === updatedChannel._id ? { ...updatedChannel } : channel
         );
