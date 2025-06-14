@@ -7,10 +7,10 @@ export const getConversations = async (authUserId: string): Promise<any> => {
       $match: {
         $or: [
           {
-            receiver: mongoose.Types.ObjectId(authUserId),
+            receiver: new mongoose.Types.ObjectId(authUserId),
           },
           {
-            sender: mongoose.Types.ObjectId(authUserId),
+            sender: new mongoose.Types.ObjectId(authUserId),
           },
         ],
       },

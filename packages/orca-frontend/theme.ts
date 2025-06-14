@@ -18,6 +18,15 @@ export type GeneralColors =
   | 'link'
   | 'body'
   | 'white'
+  | 'black'
+  | 'blue'
+  | 'brown'
+  | 'gray'
+  | 'green'
+  | 'pink'
+  | 'purple'
+  | 'red'
+  | 'yellow'
   | 'text'
   | 'textSecondary'
   | 'disabled'
@@ -81,6 +90,15 @@ const theme: Theme = {
       link: '#0073F5',
       body: '#F5F6F7',
       white: '#fff',
+      black: '#1B1B1B',
+      blue: '#2A75BB',
+      brown: '#A55239',
+      gray: '#787878',
+      green: '#4E8234',
+      pink: '#EE99AC',
+      purple: '#A63EA3',
+      red: '#C03028',
+      yellow: '#EED535',
       text: '#050505',
       textSecondary: '#64676B',
       disabled: '#CDD0D4',

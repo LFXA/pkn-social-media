@@ -35,7 +35,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 380px;
+  width: 410px;
 `;
 
 export const SearchContainer = styled.div`

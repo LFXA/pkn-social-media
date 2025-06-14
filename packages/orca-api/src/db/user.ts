@@ -63,6 +63,8 @@ export const updateUserResetPasswordToken = async (userId: string, token: string
 export const createUser = async (
   fullName: string,
   username: string,
+  about: string,
+  color: string,
   email: string,
   password: string,
   isOnline?: boolean
@@ -70,6 +72,8 @@ export const createUser = async (
   const user = await User.create({
     fullName,
     username,
+    about,
+    color,
     email,
     password,
     isOnline,

@@ -34,6 +34,7 @@ const Header: ForwardRefRenderFunction<HTMLButtonElement, HeaderProps> = ({ togg
   const dispatch = useDispatch();
   const authUser = useSelector((state: RootState) => state.auth.user);
   const logo = useSelector((state: RootState) => state.settings.communityLogo);
+  const communityName = useSelector((state: RootState) => state.settings.communityName);
   const { mutateAsync: updateSeen } = useMutation({mutationFn: updateNotificationSeen});
   const router = useRouter();
   const authUserRef = useRef(null);
@@ -86,6 +87,8 @@ const Header: ForwardRefRenderFunction<HTMLButtonElement, HeaderProps> = ({ togg
             </Link>
           </Logo>
           <Spacing left="sm" />
+          { communityName }
+          <Spacing right="sm" />
           <SearchContainer>
             <Search
               hideBorder

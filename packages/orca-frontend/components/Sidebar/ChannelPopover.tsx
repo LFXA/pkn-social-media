@@ -86,7 +86,11 @@ const ChannelPopover: FC<ChannelPopoverProps> = ({ channel }) => {
         <ChannelEdit channel={channel} closeModal={closeModal} />
       </Modal>
 
-      <Confirm isOpen={isDeleteModalOpen} close={closeModal} onConfirm={() => removeChannel(channel._id)} />
+      <Confirm
+       isOpen={isDeleteModalOpen}
+        title="Remove the channel permanently?"
+       close={closeModal}
+        onConfirm={() => removeChannel(channel._id)} />
       <Button
         ghost
         onClick={() => {

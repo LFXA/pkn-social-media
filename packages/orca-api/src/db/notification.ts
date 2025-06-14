@@ -68,10 +68,11 @@ export const createNotification = async (
   await User.findOneAndUpdate({ _id: userId }, { $push: { notifications: newNotification._id } });
 
   newNotification = await newNotification
-    .populate('author')
-    .populate('follow')
-    .populate({ path: 'comment', populate: { path: 'post' } })
-    .populate({ path: 'like', populate: { path: 'post' } });
+    .populate([
+  { path: 'author' },
+  { path: 'follow' },
+  { path: 'comment', populate: { path: 'post' } },
+  { path: 'like', populate: { path: 'post' } }]);
 
   return newNotification;
 };
@@ -83,10 +84,11 @@ export const deleteNotification = async (id: string): Promise<any> => {
   await User.findOneAndUpdate({ _id: notification.user }, { $pull: { notifications: notification._id } });
 
   notification = await notification
-    .populate('author')
-    .populate('follow')
-    .populate({ path: 'comment', populate: { path: 'post' } })
-    .populate({ path: 'like', populate: { path: 'post' } });
+    .populate([
+  { path: 'author' },
+  { path: 'follow' },
+  { path: 'comment', populate: { path: 'post' } },
+  { path: 'like', populate: { path: 'post' } }]);
 
   return notification;
 };

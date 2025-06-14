@@ -8,13 +8,15 @@ import {
   ProfileImageWrapper,
   Info,
   Actions,
+  TypeRow,
   Count,
+  ImageContainer, Image,
   Bold,
 } from './style';
 import UploadImage from '../UploadImage';
 import Follow from '../Follow';
 import { RootState } from '../../store';
-import { Loading, H1, Spacing, ButtonLink, Avatar } from '../ui';
+import { Loading, H1, Spacing, ButtonLink, Avatar, Container, P } from '../ui';
 import { EnvelopeIcon } from '../ui/icons';
 
 interface ProfileProps {
@@ -59,6 +61,17 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
             </ProfileImageWrapper>
           )}
         </ProfilePhoto>
+        <Container paddingHorizontal="sm" paddingVertical="xs" bgColor="green" shadow="sm">
+            <h3>About</h3>
+              <Spacing left="xs" top="xxs">
+                <P size="xs">
+                  {user.username}
+                </P>
+                <TypeRow>
+                  <ImageContainer>{<Image alt="type" src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/brilliant-diamond-and-shining-pearl/12.png' />}</ImageContainer>
+                </TypeRow>
+              </Spacing>
+          </Container>
       </CoverPhoto>
 
       <Info>

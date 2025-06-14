@@ -50,8 +50,13 @@ export const updateCommunity = async (
   return updatedSettings;
 };
 
-export const updateProfile = async (id: string, fullName: string, username: string): Promise<any> => {
-  const user = await User.findOneAndUpdate({ _id: id }, { fullName, username }, { new: true });
+export const updateProfile = async (
+   id: string,
+   fullName: string,
+   username: string,
+   about: string,
+   color: string ): Promise<any> => {
+  const user = await User.findOneAndUpdate({ _id: id }, { fullName, username, about, color }, { new: true });
   return user;
 };
 

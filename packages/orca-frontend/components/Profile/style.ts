@@ -31,6 +31,26 @@ export const CoverLoading = styled.div`
   top: 30px;
 `;
 
+export const TypeRow = styled.div`
+  display: flex;
+  gap: 8px; 
+`;
+
+export const ImageContainer = styled.div`
+  width: 15%;
+  height: 35px;
+  margin-top: 15px;
+  overflow: hidden;
+  flex-shrink: 0;
+`;
+
+export const Image = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+
 export const ProfilePhoto = styled.div`
   margin: 0 auto;
   position: relative;
@@ -38,6 +58,7 @@ export const ProfilePhoto = styled.div`
   width: 119px;
   margin-bottom: -50px;
   border-radius: 50%;
+  z-index: 999;
   background-color: ${(p) => p.theme.colors.general.white};
   display: flex;
   justify-content: center;
@@ -55,8 +76,7 @@ export const CoverImageWrapper = styled.div`
   top: ${(p) => p.theme.spacing.xs};
 
   @media (min-width: ${(p) => p.theme.screen.sm}) {
-    top: auto;
-    bottom: ${(p) => p.theme.spacing.xs};
+
   }
 `;
 

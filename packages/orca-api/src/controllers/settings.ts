@@ -66,7 +66,7 @@ const SettingsController = {
     return res.send(community);
   },
   updateProfile: async (req: Request, res: Response): Promise<any> => {
-    const { fullName, username } = req.body;
+    const { fullName, username, about, color } = req.body;
     const authUser = req.user as AuthUser;
 
     const existingUser = await getUserByUsername(username);
@@ -75,7 +75,7 @@ const SettingsController = {
       return res.status(ErrorCodes.Bad_Request).send('A user with a given username already exists.');
     }
 
-    const updatedUser = await updateProfile(authUser._id, fullName, username);
+    const updatedUser = await updateProfile(authUser._id, fullName, username, about, color);
     return res.send(updatedUser);
   },
   updatePassword: async (req: Request, res: Response): Promise<any> => {

@@ -52,7 +52,7 @@ const useNotifications = () => {
         return;
       }
 
-      queryClient.setQueryData([queryKey], (existingPosts: any) => {
+      queryClient.setQueryData(Array.isArray(queryKey) ? queryKey : [queryKey], (existingPosts: any) => {
         if (!existingPosts.pages) {
           return {
             ...existingPosts,
@@ -92,7 +92,7 @@ const useNotifications = () => {
     try {
       const notification = await deleteMutation(id);
       socket.emit(Events.DELETE_NOTIFICATION, notification);
-      queryClient.setQueryData([queryKey], (existingPosts: any) => {
+      queryClient.setQueryData(Array.isArray(queryKey) ? queryKey : [queryKey], (existingPosts: any) => {
         if (!existingPosts.pages) {
           return {
             ...existingPosts,

@@ -82,7 +82,7 @@ export const sendNotificationEmail = async ({
   emailContent.html = template;
 
   try {
-    await sendEmail(emailContent);
+    // await sendEmail(emailContent);
   } catch (error) {
     console.log('Sending email failed:', error);
   }

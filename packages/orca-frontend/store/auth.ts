@@ -15,6 +15,7 @@ export interface AuthUser {
   googleId?: string;
   githubId?: string;
   about?: string;
+  color?: string;
   website?: string;
   notifications: any[];
   followers: any[];

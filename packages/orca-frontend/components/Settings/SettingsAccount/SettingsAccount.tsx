@@ -10,6 +10,8 @@ import { setAuthUser } from '../../../store/auth';
 interface AccountSettings {
   fullName: string;
   username: string;
+  about: string;
+  color: string;
 }
 
 const updateAccountSettings = async (settings: AccountSettings) => {
@@ -26,10 +28,14 @@ const SettingsAccount: FC = () => {
   const [values, setValues] = useState({
     fullName: authUser.fullName,
     username: authUser.username || '',
+    about: authUser.about || '',
+    color: authUser.color || '',
   });
   const [errors, setErrors] = useState({
     fullName: null,
     username: null,
+    color: null,
+    about: null,
   });
   const { mutateAsync, isPending } = useMutation({mutationFn:updateAccountSettings});
 
@@ -38,12 +44,19 @@ const SettingsAccount: FC = () => {
 
     setApiError('');
     try {
-      await mutateAsync({ fullName: values.fullName, username: values.username });
+      await mutateAsync({ 
+        fullName: values.fullName,
+         username: values.username,
+         about: values.about,
+         color: values.color
+         });
       dispatch(
         setAuthUser({
           ...authUser,
           fullName: values.fullName,
           username: values.username,
+          about: values.about,
+          color: values.color
         })
       );
       dispatch(
@@ -114,11 +127,37 @@ const SettingsAccount: FC = () => {
           onChange={onChange}
         />
 
+          <Spacing top="md" />
+
+        <InputText
+          name="about"
+          label="About"
+          description="Example: I'm a pokémon"
+          value={values.about}
+          error={formTouched && errors.about}
+          onChange={onChange}
+        />
+          <Spacing top="md" />
+
+        <InputText
+          name="color"
+          label="Color"
+          description="Example: red"
+          value={values.color}
+          error={formTouched && errors.color}
+          onChange={onChange}
+        />
+
         <Spacing top="md" bottom="md">
           {apiError && <Text color="error">{apiError}</Text>}
         </Spacing>
 
-        <Button color="primary" type="submit" disabled={errors.fullName || errors.username || isPending}>
+        <Button color="primary" type="submit" disabled={
+          errors.fullName || 
+          errors.username ||
+          errors.about ||
+          errors.color ||
+           isPending}>
           Save changes
         </Button>
       </form>
