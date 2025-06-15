@@ -7,7 +7,7 @@ load_dotenv()
 
 fake = Faker()
 API_URL =  os.getenv("API_URL") + "/signup"  # Your signup endpoint
-POKEAPI_URL = os.getenv("POKEAPI_URL") +"/pokemon?limit=10"  # Limit to 10 Pokémon
+POKEAPI_URL = os.getenv("POKEAPI_URL") +"/pokemon?offset=20&limit=1500"  # Limit to 10 Pokémon
 
 def get_pokemon_names():
     response = requests.get(POKEAPI_URL)
@@ -19,7 +19,7 @@ def signup_pokemon(name):
     email = f"{name}@poke.com"
     password = name + name
     payload = {
-        "fullName": name.title(),
+        "fullName": name.title().replace("-", " "),
         "username": name.lower(),
         "email": email,
         "password": password

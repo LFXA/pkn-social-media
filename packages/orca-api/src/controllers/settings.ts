@@ -71,7 +71,7 @@ const SettingsController = {
 
     const existingUser = await getUserByUsername(username);
 
-    if (existingUser && existingUser._id.toString() !== authUser._id) {
+    if (existingUser && existingUser._id.toString() !== authUser._id.toString()) {
       return res.status(ErrorCodes.Bad_Request).send('A user with a given username already exists.');
     }
 

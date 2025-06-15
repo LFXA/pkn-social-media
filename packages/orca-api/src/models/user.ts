@@ -54,6 +54,10 @@ const UserSchema = new Schema(
       type: String,
       default: '',
     },
+    pokeApiId: {
+      type: String,
+      default: '',
+    },
     image: String,
     imagePublicId: String,
     about: String,
@@ -65,6 +69,8 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    types: [String],
+    stats: [String],
     posts: [
       {
         type: Schema.Types.ObjectId,
@@ -125,6 +131,7 @@ export interface IUser extends Document {
   facebookId: string;
   googleId: string;
   githubId: string;
+  pokeApiId: string;
   image: string;
   imagePublicId: string;
   about: String;
@@ -133,6 +140,8 @@ export interface IUser extends Document {
   coverImage: string;
   coverImagePublicId: string;
   isOnline: boolean;
+  types: string[];
+  stats: string[];
   posts: string[];
   likes: string[];
   comments: string[];

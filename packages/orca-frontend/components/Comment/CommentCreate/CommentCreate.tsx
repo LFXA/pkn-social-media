@@ -82,7 +82,7 @@ const CommentCreate: FC<CommentCreateProps> = ({ autoFocus, post, queryKey }) =>
 
   return (
     <Root>
-      <Avatar image={authUser?.image} />
+      <Avatar image={authUser?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser?.pokeApiId}.png` : authUser?.image} />
 
       <TextareaContainer>
         <TextAreaAutoSize

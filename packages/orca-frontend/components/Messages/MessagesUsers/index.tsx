@@ -38,7 +38,9 @@ const MessagesUsers: FC<MessagesUsers> = ({ onSearchItemClick, conversations, us
       return (
         <ButtonLink href={`/messages/${person._id}`} fullWidth key={conversation._id}>
           <User active={person._id === userId}>
-            <Avatar isOnline={conversation.isOnline} image={person.image} size={1.5} />
+            <Avatar isOnline={conversation.isOnline} 
+            image={person.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${person.pokeApiId}.png` : person.image}
+            size={1.5} />
 
             <Info>
               <FullNameUnSeen>

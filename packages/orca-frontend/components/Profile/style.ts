@@ -33,12 +33,14 @@ export const CoverLoading = styled.div`
 
 export const TypeRow = styled.div`
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 8px; 
 `;
 
 export const ImageContainer = styled.div`
-  width: 15%;
-  height: 35px;
+
+  height: 30px;
   margin-top: 15px;
   overflow: hidden;
   flex-shrink: 0;
@@ -50,6 +52,17 @@ export const Image = styled.img`
   object-fit: cover;
 `;
 
+export const InitialLetters = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-transform: uppercase;
+  color: ${(p) => p.theme.colors.general.white};
+  font-size: ${(p) => p.theme.font.size.lg};
+  background-color: ${(p) => p.color};
+`;
 
 export const ProfilePhoto = styled.div`
   margin: 0 auto;
@@ -58,10 +71,15 @@ export const ProfilePhoto = styled.div`
   width: 119px;
   margin-bottom: -50px;
   border-radius: 50%;
-  z-index: 999;
+  z-index: 10;
   background-color: ${(p) => p.theme.colors.general.white};
   display: flex;
   justify-content: center;
+`;
+
+export const AboutLine = styled.span`
+  display: inline-block;
+   margin: 0 0 8px 0;
 `;
 
 export const ProfileImageWrapper = styled.div`
@@ -83,6 +101,12 @@ export const CoverImageWrapper = styled.div`
 export const Info = styled.div`
   margin-top: ${(p) => p.theme.spacing.xl};
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  width: 85%;
 `;
 
 export const Actions = styled.div`

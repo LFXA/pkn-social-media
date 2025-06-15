@@ -66,7 +66,8 @@ const SearchResult: FC<SearchResultProps> = ({
             >
               {!onlyUsers && (
                 <SearchIcon>
-                  {isUserResult ? <Avatar image={item.image} size={0.8} /> : <PostIcon width="16" />}
+                  {isUserResult ? <Avatar  image={item.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${item.pokeApiId}.png` : item.image}
+                   size={0.8} /> : <PostIcon width="16" />}
                 </SearchIcon>
               )}
               <>

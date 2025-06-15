@@ -18,3 +18,4 @@ export { default as Empty } from './Empty';
 export { default as Skeleton } from './Skeleton';
 export { default as Divider } from './Divider';
 export { default as Select } from './Select';
+export { default as ProgressBar } from './ProgressBar';

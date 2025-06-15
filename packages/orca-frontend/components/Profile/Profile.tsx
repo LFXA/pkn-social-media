@@ -12,11 +12,13 @@ import {
   Count,
   ImageContainer, Image,
   Bold,
+  AboutLine,
+  
 } from './style';
 import UploadImage from '../UploadImage';
 import Follow from '../Follow';
 import { RootState } from '../../store';
-import { Loading, H1, Spacing, ButtonLink, Avatar, Container, P } from '../ui';
+import { Loading, H1, Spacing, ButtonLink, Avatar, Container, P, ProgressBar } from '../ui';
 import { EnvelopeIcon } from '../ui/icons';
 
 interface ProfileProps {
@@ -51,7 +53,9 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
           ) : (
             <Avatar
               isOnline={authUser?._id !== user._id && user.isOnline}
-              image={authUser?._id === user._id ? authUser.image : user.image}
+              image={ user.pokeApiId ? 
+                `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${user.pokeApiId}.png`:
+                user.image  }
               size={4}
             />
           )}
@@ -61,21 +65,43 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
             </ProfileImageWrapper>
           )}
         </ProfilePhoto>
-        <Container paddingHorizontal="sm" paddingVertical="xs" bgColor="green" shadow="sm">
-            <h3>About</h3>
-              <Spacing left="xs" top="xxs">
-                <P size="xs">
-                  {user.username}
-                </P>
-                <TypeRow>
-                  <ImageContainer>{<Image alt="type" src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/brilliant-diamond-and-shining-pearl/12.png' />}</ImageContainer>
-                </TypeRow>
-              </Spacing>
-          </Container>
+        
       </CoverPhoto>
 
       <Info>
         <H1>{user.fullName}</H1>
+        <Container paddingHorizontal="sm" paddingVertical="xs" marginTop="sm" bgColor={user.color || 'red' } shadow="sm">
+            
+              <Spacing left="xs" top="xxs">
+                <P size="xs">
+                  {user.about.split('\\n').map((line, idx) => (
+                    <AboutLine key={idx}>
+                        {idx == 0 ? <h3>{line}</h3> : line}                
+                    </AboutLine>
+                  ))}
+                </P>
+                <P size="xs">
+                <br/>
+                <TypeRow>
+                <ProgressBar label="HP" value={user.stats[0] ?? 0} />
+                <ProgressBar label="Attack"  value={user.stats[1] ?? 0} />
+                <ProgressBar label="Defense"  value={user.stats[2] ?? 0} />
+                <ProgressBar label="Special Attack"  value={user.stats[3] ?? 0} />
+                <ProgressBar label="Special Defense"  value={user.stats[4] ?? 0} />
+                <ProgressBar label="Speed"  value={user.stats[5] ?? 0} />
+                 </TypeRow>
+                </P>
+                <TypeRow>
+                  {user.types?.map((type: string) => (
+                  <ImageContainer>
+                    <Image alt="type"
+                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/brilliant-diamond-and-shining-pearl/${type}.png`} />
+                    </ImageContainer>
+                      ))}
+                </TypeRow>
+               
+              </Spacing>
+          </Container>
       </Info>
 
       {authUser && authUser?._id !== user._id && (

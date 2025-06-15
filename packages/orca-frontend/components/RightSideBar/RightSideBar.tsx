@@ -41,7 +41,7 @@ const RightSideBar: FC = () => {
           <Person>
             <Avatar
               size={1.1}
-              image={user.image}
+              image={user.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${user.pokeApiId}.png` : user.image}
               fullName={user.fullName}
               isOnline={displayIsOnline ? user.isOnline : false}
             />

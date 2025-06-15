@@ -73,7 +73,7 @@ const Comment: FC<CommentProps> = ({ comment, author, queryKey, post }) => {
   return (
     <Root>
       <Link disableBorderOnHover href={`/profile/${author._id}`}>
-        <Avatar image={author?.image} />
+        <Avatar image={author?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${author?.pokeApiId}.png` : author?.image} />
       </Link>
 
       <Container>

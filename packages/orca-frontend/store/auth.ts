@@ -14,10 +14,13 @@ export interface AuthUser {
   facebookId?: string;
   googleId?: string;
   githubId?: string;
+  pokeApiId?: string;
   about?: string;
   color?: string;
   website?: string;
   notifications: any[];
+  types: any[];
+  stats: any[];
   followers: any[];
   following: any[];
   isOnline: boolean;

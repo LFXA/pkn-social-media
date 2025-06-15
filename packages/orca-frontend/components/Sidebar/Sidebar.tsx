@@ -128,7 +128,7 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
               active={router.query?.id === authUser._id}
               size="sm"
             >
-              <Avatar image={authUser.image} isActive={router.query?.id === authUser._id} />
+              <Avatar image={authUser?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser?.pokeApiId}.png` : authUser?.image}  isActive={router.query?.id === authUser._id} />
               <Spacing right="xs" />
               {authUser.fullName}
             </ButtonLink>
@@ -185,10 +185,7 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
           </ButtonLink>
         </LI>
 
-        <LI noHover>
-          <Spacing top="sm" left="xs" />
-          <Divider />
-        </LI>
+        
       </UL>
 
       {channelItems?.length > 0 && (
@@ -203,9 +200,14 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
                   activeChannelName={router.query.name}
                 />
               ))}
+              <LI noHover>
+             <Spacing top="sm" left="xs" />
+              <Divider />
+            </LI>
             </UL>
           </SortableContext>
         </DndContext>
+        
       )}
 
       {isAdmin && (

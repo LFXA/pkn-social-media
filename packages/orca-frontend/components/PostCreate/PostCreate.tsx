@@ -197,7 +197,7 @@ const PostCreate: FC<PostCreateProps> = ({
     <Modal title={postId ? 'Edit Post' : 'Create Post'} isOpen={isPostCreateOpen} close={close}>
       <form onSubmit={handleSubmit}>
         <SelectContainer>
-          <Avatar size={1.25} image={authUser.image} />
+          <Avatar size={1.25} image={authUser?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser?.pokeApiId}.png` : authUser?.image}  />
           <Spacing left="sm">
             <Select onChange={handleChange} name="channelId" defaultValue={channelId && channelId}>
               {channels?.map((channel: Channel) => (

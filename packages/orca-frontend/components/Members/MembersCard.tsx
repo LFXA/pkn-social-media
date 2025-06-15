@@ -15,7 +15,7 @@ const MembersCard: FC<MembersCardProps> = ({ user, queryKey }) => {
   const [color, setColor] = useState('');
   const authUser = useSelector((state: RootState) => state.auth.user);
 
-  const { fullName, username, image } = user;
+  const { fullName, username, pokeApiId } = user;
 
   useEffect(() => {
     const { primary, secondary, success, error } = theme.colors.general;
@@ -38,8 +38,8 @@ const MembersCard: FC<MembersCardProps> = ({ user, queryKey }) => {
     <Root>
       <Link href={`/profile/${user._id}`} disableBorderOnHover>
         <ImageContainer>
-          {image ? (
-            <Image alt={user.fullName} src={image} />
+          {pokeApiId ? (
+            <Image alt={user.fullName} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeApiId}.png`} />
           ) : (
             <InitialLetters color={color}>{splitFullName()}</InitialLetters>
           )}

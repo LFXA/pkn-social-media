@@ -31,7 +31,7 @@ const PostCreateButton: FC<PostCreateButtonProps> = ({ channel, queryKey }) => {
 
   return (
     <Root>
-      <Avatar image={authUser?.image} size={1.25} isOnline />
+      <Avatar image={authUser?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser?.pokeApiId}.png` : authUser?.image}  size={1.25} isOnline />
       {isPostCreateOpen && (
         <PostCreate
           channelId={channel?._id}

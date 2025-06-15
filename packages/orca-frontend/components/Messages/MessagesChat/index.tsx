@@ -158,7 +158,7 @@ const MessagesChat: FC<MessagesChatProps> = ({ onSearchItemClick, userId, user }
         {user ? (
           <Container>
             <Link href={`/profile/${user._id}`} disableBorderOnHover>
-              <Avatar isOnline={user.isOnline} image={user.image} size={1.5} />
+              <Avatar isOnline={user.isOnline} image={user?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${user?.pokeApiId}.png` : user?.image}  size={1.5} />
               <FullName>{user.fullName}</FullName>
             </Link>
           </Container>
@@ -187,7 +187,7 @@ const MessagesChat: FC<MessagesChatProps> = ({ onSearchItemClick, userId, user }
                   <MessageWrapper isSender={isSender} key={m._id}>
                     {!isSender && (
                       <Spacing right="xxs">
-                        <Avatar image={m.sender.image} />
+                        <Avatar image={m.sender?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${m.sender.pokeApiId}.png` : m.sender?.image} />
                       </Spacing>
                     )}
 

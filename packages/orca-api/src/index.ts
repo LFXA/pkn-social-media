@@ -16,6 +16,8 @@ initDb();
 initPassport();
 
 const app = express();
+const httpServer = createServer(app);
+
 app.use(fileUpload());
 app.use(compression());
 app.use(cookieParser());
@@ -30,12 +32,32 @@ app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/health', (req, res) => res.send('OK'));
 app.use('/', routes);
 
-const httpServer = createServer(app);
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal server error',
+  });
+});
+
 socket(httpServer);
 
 const PORT = process.env.PORT || process.env.API_PORT;
 httpServer.listen({ port: PORT }, () => {
   console.log(`httpServer ready at http://localhost:${PORT}`);
 });
+
+
+// Graceful Shutdown
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+
+function shutdown() {
+  console.log('🔻 Shutting down...');
+  httpServer.close(() => {
+    console.log('🔌 HTTP server closed');
+    process.exit(0);
+  });
+}

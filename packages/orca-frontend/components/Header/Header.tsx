@@ -128,7 +128,7 @@ const Header: ForwardRefRenderFunction<HTMLButtonElement, HeaderProps> = ({ togg
           <div ref={authUserRef}>
             {authUser ? (
               <Button ghost onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}>
-                <Avatar image={authUser.image} />
+                <Avatar image={authUser.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser.pokeApiId}.png` : authUser.image}  />
               </Button>
             ) : (
               <Button

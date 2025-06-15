@@ -44,6 +44,7 @@ export const P = styled.p<PProps>`
   margin: 0;
   color: ${(p) => (p.color ? p.theme.colors.general[p.color] : p.theme.colors.general.text)};
   font-size: ${(p) => (p.size ? p.theme.font.size[p.size] : p.theme.font.size.sm)};
+  white-space: pre-line;
   font-weight: ${(p) => (p.weight ? p.theme.font.weight[p.weight] : p.theme.font.weight.normal)};
 `;
 
