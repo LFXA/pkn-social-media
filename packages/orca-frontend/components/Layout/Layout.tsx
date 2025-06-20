@@ -47,7 +47,7 @@ const Layout: FC<LayoutProps> = ({ children, hideLeftSidebar, hideRightSidebar, 
         <StyledContainer
           bgColor="body"
           marginTop={marginTop}
-          padding="none"
+          padding="sm"
           maxWidth={containerMaxWidth}
           hideRightSidebar={hideRightSidebar}
         >

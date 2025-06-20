@@ -28,7 +28,7 @@ const MembersPage: FC = () => {
 
   const isEmpty = !data?.pages[0] || data.pages[0].length === 0;
 
-  if (isFetching && !isFetchingNextPage) {
+  if (isFetching && !isFetchingNextPage && isEmpty) {
     return (
       <Layout hideRightSidebar containerMaxWidth="md">
         <Wrapper>

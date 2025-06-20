@@ -34,7 +34,7 @@ def get_pokemon_data(pokemon_name):
         stats = data["stats"]
 
         # Fetch color from the species endpoint
-        species_url = f"{base_url}/pokemon-species/{poke_api_id}"
+        species_url =  data["species"]["url"] 
         species_response = requests.get(species_url)
         
         if species_response.status_code != 200:
@@ -49,7 +49,7 @@ def get_pokemon_data(pokemon_name):
         flavor_text = get_last_english_property(species_data["flavor_text_entries"], "flavor_text")
         genus = get_last_english_property(species_data["genera"], "genus")
         shape = species_data.get("shape", {}).get("name")
-        base_stats = [stat["base_stat"] for stat in data["stats"]]
+        base_stats = [stat["base_stat"] for stat in stats]
         
         return {
             "types": types,

@@ -81,7 +81,6 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
                   ))}
                 </P>
                 <P size="xs">
-                <br/>
                 <TypeRow>
                 <ProgressBar label="HP" value={user.stats[0] ?? 0} />
                 <ProgressBar label="Attack"  value={user.stats[1] ?? 0} />

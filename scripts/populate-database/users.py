@@ -2,12 +2,13 @@ import requests
 from faker import Faker
 from dotenv import load_dotenv
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 load_dotenv()
 
 fake = Faker()
-API_URL =  os.getenv("API_URL") + "/signup"  # Your signup endpoint
-POKEAPI_URL = os.getenv("POKEAPI_URL") +"/pokemon?offset=20&limit=1500"  # Limit to 10 Pokémon
+API_URL = os.getenv("API_URL") + "/signup"
+POKEAPI_URL = os.getenv("POKEAPI_URL") + "/pokemon?offset=0&limit=1600"
 
 def get_pokemon_names():
     response = requests.get(POKEAPI_URL)
@@ -30,14 +31,22 @@ def signup_pokemon(name):
         if response.status_code == 200:
             print(f"✅ Signed up: {name} | Email: {email}")
         else:
-            print(f"❌ Failed to sign up {name}: {response.text}")
+            print(f"❌ Failed to sign up {name}: {response.status_code} | {response.text}")
     except Exception as e:
         print(f"🔥 Error signing up {name}: {e}")
 
 def main():
     pokemon_names = get_pokemon_names()
-    for name in pokemon_names:
-        signup_pokemon(name)
+
+    # Limit the number of workers to avoid overwhelming the API
+    max_workers = min(77, len(pokemon_names))
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [executor.submit(signup_pokemon, name) for name in pokemon_names]
+
+        for future in as_completed(futures):
+            # Just ensuring exceptions are raised here if any
+            future.result()
 
 if __name__ == "__main__":
     main()

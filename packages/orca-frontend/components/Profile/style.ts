@@ -79,7 +79,6 @@ export const ProfilePhoto = styled.div`
 
 export const AboutLine = styled.span`
   display: inline-block;
-   margin: 0 0 8px 0;
 `;
 
 export const ProfileImageWrapper = styled.div`
