@@ -10,7 +10,7 @@ const Notification: FC<NotificationProps> = ({ notification }) => {
   return (
     <Root>
       <Item>
-        <Link disableBorderOnHover href={`/profile/${notification.author._id}`}>
+        <Link disableBorderOnHover href={`/profile/${notification.author.username}`}>
           <Avatar fullName={notification.author.fullName} image={notification.author.image} />
         </Link>
 

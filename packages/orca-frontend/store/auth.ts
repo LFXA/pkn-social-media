@@ -17,6 +17,7 @@ export interface AuthUser {
   pokeApiId?: string;
   about?: string;
   color?: string;
+  evolutionChain: string;
   website?: string;
   notifications: any[];
   types: any[];

@@ -32,7 +32,7 @@ const HeaderUser: FC<HeaderUserProps> = ({ closeDropDown, isUserDropdownOpen, au
 
   return (
     <UserDropDown>
-      <ButtonLink fullWidth center hasHover color="textSecondary" radius="none" href={`/profile/${authUser?._id}`}>
+      <ButtonLink fullWidth center hasHover color="textSecondary" radius="none" href={`/profile/${authUser?.username}`}>
         My Profile
       </ButtonLink>
 

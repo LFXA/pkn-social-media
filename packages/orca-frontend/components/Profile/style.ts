@@ -127,3 +127,48 @@ export const Bold = styled.div`
   display: inline-block;
   margin-right: ${(p) => p.theme.spacing.xxs};
 `;
+
+
+export const Root = styled.div``;
+
+export const HeadingContainer = styled.div`
+  padding: 8px 16px;
+`;
+
+export const Heading = styled.h3`
+  margin: 0;
+`;
+
+export const ChainContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 16px;
+
+  .connector {
+    font-size: 1.5rem;
+    color: #888;
+  }
+`;
+
+export const ChainNode = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ChildChain = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+  flex-direction: row;
+  position: relative;
+`;
+export const DownArrow = styled.div`
+  text-align: center;
+  font-size: 24px;
+  margin-top: 8px;
+`;

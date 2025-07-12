@@ -12,8 +12,8 @@ import Seo from '../../components/Seo';
 import { GetServerSideProps } from 'next';
 
 const fetchUser = async ({ queryKey }) => {
-  const [, id] = queryKey;
-  const { data } = await axios.get(`/users/${id}`);
+  const [, username] = queryKey;
+  const { data } = await axios.get(`/usersProfile/${username}`);
   return data;
 };
 
@@ -99,7 +99,7 @@ const ProfilePage: FC<ProfilePageProps> = ({ user }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const user = await fetchUser({ queryKey: ['user', params.id] });
+  const user = await fetchUser({ queryKey: ['user', params.username] });
   return {
     props: {
       user,

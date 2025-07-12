@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   CoverPhoto,
@@ -16,6 +16,7 @@ import {
   
 } from './style';
 import UploadImage from '../UploadImage';
+import EvolutionChainView from './EvolutionChainView';
 import Follow from '../Follow';
 import { RootState } from '../../store';
 import { Loading, H1, Spacing, ButtonLink, Avatar, Container, P, ProgressBar } from '../ui';
@@ -31,9 +32,45 @@ export enum ProfileLoading {
   CoverPicture,
 }
 
+function mapChain(chain) {
+  const extractId = (url: string): number => {
+    const match = url.match(/\/pokemon-species\/(\d+)\//);
+    return match ? parseInt(match[1], 10) : 0;
+  };
+
+  return {
+    name: chain.species.name,
+    pokeApiId: extractId(chain.species.url),
+    evolves_to: chain.evolves_to.map(mapChain)
+  };
+}
+
 const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
   const authUser = useSelector((state: RootState) => state.auth.user);
   const [isLoading, setIsLoading] = useState<ProfileLoading>(null);
+  const [evolutionChain, setEvolutionChain] = useState(null);
+  const [evolutionLoading, setEvolutionLoading] = useState(false);
+  
+  useEffect(() => {
+    const fetchEvolutionChain = async () => {
+      if (!user.evolutionChain) return;
+
+      setEvolutionLoading(true);
+      try {
+        const response = await fetch(`https://pokeapi.co/api/v2/evolution-chain/${user.evolutionChain}/`);
+        const data =  await response.json();
+        const parsed = mapChain(data.chain);
+        setEvolutionChain(parsed);
+      } catch (error) {
+        console.error('Failed to load evolution chain', error);
+      } finally {
+        setEvolutionLoading(false);
+      }
+    };
+
+    fetchEvolutionChain();
+  }, [user.evolutionChain]);
+
   return (
     <>
       <CoverPhoto isLoading={isLoading} image={authUser?._id === user._id ? authUser.coverImage : user.coverImage}>
@@ -98,9 +135,15 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
                     </ImageContainer>
                       ))}
                 </TypeRow>
-               
+        
               </Spacing>
+              
+             
+     
           </Container>
+           <Container  bgColor={user.color || 'red' }>
+             <EvolutionChainView chain={evolutionChain} isFetching={evolutionLoading} />
+            </Container>
       </Info>
 
       {authUser && authUser?._id !== user._id && (

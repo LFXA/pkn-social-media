@@ -56,7 +56,9 @@ def get_pokemon_data(pokemon_name):
             "pokeApiId": poke_api_id,
             "color": color,
             "about": genus.upper() + ' \n\nShape: '+ shape.title() + ' \n\n' + flavor_text.replace("\n", " "), 
-            "stats": base_stats
+            "stats": base_stats,
+            "evolutionChain": int(species_data["evolution_chain"]["url"].rstrip('/').split('/')[-1])
+
         }
     else:
         print(f"Failed to fetch data for Pokémon ID {pokemon_name}")
@@ -77,7 +79,8 @@ def update_users():
                     "pokeApiId": pokemon_data["pokeApiId"],
                     "color": pokemon_data["color"],
                     "about": pokemon_data["about"],
-                    "stats": pokemon_data["stats"]
+                    "stats": pokemon_data["stats"],
+                    "evolutionChain": pokemon_data["evolutionChain"],
                 }}
             )
             print(f"Updated user {user.get('email', user['_id'])} with {pokemon_data}")

@@ -123,9 +123,9 @@ const Sidebar: ForwardRefRenderFunction<HTMLDivElement, SidebarProps> = ({ isOpe
             <ButtonLink
               fullWidth
               radius="none"
-              href={`/profile/${authUser._id}`}
+              href={`/profile/${authUser.username}`}
               color="text"
-              active={router.query?.id === authUser._id}
+              active={router.query?.username === authUser.username}
               size="sm"
             >
               <Avatar image={authUser?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${authUser?.pokeApiId}.png` : authUser?.image}  isActive={router.query?.id === authUser._id} />

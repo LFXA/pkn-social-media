@@ -93,12 +93,12 @@ const PostCard: FC<PostCardProps> = ({
 
       <Top>
         <Author>
-          <Link disableBorderOnHover href={`/profile/${post.author._id}`}>
+          <Link disableBorderOnHover href={`/profile/${post.author.username}`}>
             <Avatar image={post.author?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${post.author?.pokeApiId}.png` : post.author?.image} size={1.25} />
           </Link>
 
           <Spacing left="xs">
-            <Link href={`/profile/${post.author._id}`} color="text">
+            <Link href={`/profile/${post.author.username}`} color="text">
               <Name>{post.author.fullName} </Name>
             </Link>
             <CreatedAt>

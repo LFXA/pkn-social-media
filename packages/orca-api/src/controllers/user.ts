@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getNewMembers, getUserById, getUsers, onlineUsers, updateUser, updateUserBanned } from '../db';
+import { getNewMembers, getUserById, getUserByUsername, getUsers, onlineUsers, updateUser, updateUserBanned } from '../db';
 import { AuthUser, ErrorCodes, ErrorMessages, UserRole } from '../constants';
 import { uploadToCloudinary } from '../utils/cloudinary';
 
@@ -7,6 +7,11 @@ const UserController = {
   user: async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
     const user = await getUserById(id, true);
+    return res.send(user);
+  },
+  userByUsername: async (req: Request, res: Response): Promise<any> => {
+    const { username } = req.params;
+    const user = await getUserByUsername(username, true);
     return res.send(user);
   },
   getUsers: async (req: Request, res: Response): Promise<any> => {

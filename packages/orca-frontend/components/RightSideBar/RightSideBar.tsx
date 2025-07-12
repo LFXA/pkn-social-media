@@ -37,7 +37,7 @@ const RightSideBar: FC = () => {
   const renderList = (list: any, displayIsOnline: boolean) => {
     return list.map((user: any) => (
       <PersonContainer key={user._id}>
-        <Link href={`/profile/${user._id}`} disableBorderOnHover>
+        <Link href={`/profile/${user.username}`} disableBorderOnHover>
           <Person>
             <Avatar
               size={1.1}

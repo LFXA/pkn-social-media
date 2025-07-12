@@ -157,7 +157,7 @@ const MessagesChat: FC<MessagesChatProps> = ({ onSearchItemClick, userId, user }
       <Header>
         {user ? (
           <Container>
-            <Link href={`/profile/${user._id}`} disableBorderOnHover>
+            <Link href={`/profile/${user.username}`} disableBorderOnHover>
               <Avatar isOnline={user.isOnline} image={user?.pokeApiId ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${user?.pokeApiId}.png` : user?.image}  size={1.5} />
               <FullName>{user.fullName}</FullName>
             </Link>

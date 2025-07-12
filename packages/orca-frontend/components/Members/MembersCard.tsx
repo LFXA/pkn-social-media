@@ -36,7 +36,7 @@ const MembersCard: FC<MembersCardProps> = ({ user, queryKey }) => {
 
   return (
     <Root>
-      <Link href={`/profile/${user._id}`} disableBorderOnHover>
+      <Link href={`/profile/${user.username}`} disableBorderOnHover>
         <ImageContainer>
           {pokeApiId ? (
             <Image alt={user.fullName} src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeApiId}.png`} />
@@ -47,7 +47,7 @@ const MembersCard: FC<MembersCardProps> = ({ user, queryKey }) => {
       </Link>
 
       <Spacing top="sm" bottom="xs">
-        <Link href={`/profile/${user._id}`} disableBorderOnHover weight="bold" color="textSecondary">
+        <Link href={`/profile/${user.username}`} disableBorderOnHover weight="bold" color="textSecondary">
           <FullName>{fullName}</FullName>
         </Link>
       </Spacing>

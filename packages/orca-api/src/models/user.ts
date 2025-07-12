@@ -62,6 +62,7 @@ const UserSchema = new Schema(
     imagePublicId: String,
     about: String,
     color: String,
+    evolutionChain: String,
     website: String,
     coverImage: String,
     coverImagePublicId: String,
@@ -136,6 +137,7 @@ export interface IUser extends Document {
   imagePublicId: string;
   about: String;
   color: string;
+  evolutionChain: string;
   website: string;
   coverImage: string;
   coverImagePublicId: string;

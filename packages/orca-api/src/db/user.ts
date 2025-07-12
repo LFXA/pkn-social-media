@@ -45,8 +45,22 @@ export const getUserByEmail = async (email: string): Promise<any> => {
   return user;
 };
 
-export const getUserByUsername = async (username: string): Promise<any> => {
-  const user = await User.findOne({ username }).select('-password');
+export const getUserByUsername = async (username: string, hideBannedUser?: boolean): Promise<any> => {
+   const query = { username: username };
+  if (hideBannedUser) {
+    query.banned = { $ne: true };
+  }
+
+  const user = await User.findOne(query)
+    .select('-password')
+    .populate('likes')
+    .populate('followers')
+    .populate('following')
+    .populate({
+      path: 'notifications',
+      populate: [{ path: 'author' }, { path: 'follow' }, { path: 'like' }, { path: 'comment' }],
+    });
+
   return user;
 };
 
