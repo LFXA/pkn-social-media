@@ -1,6 +1,5 @@
 import { NotificationType } from '../constants';
 import { getUserById, notificationByAuthorUserAndType } from '../db';
-import { sendEmail } from './email';
 import { getEmailTemplate } from './emailTemplate';
 
 interface sendNotificationEmailProps {

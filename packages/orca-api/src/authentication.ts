@@ -16,7 +16,7 @@ export enum SocialProvider {
 
 const createOrUpdateUser = async (profile: SocialProfile, provider: SocialProvider) => {
   if (profile.email) {
-    const user = await User.findOne({ email: profile.email });
+    const user = await User.findOne({ email: profile.email }) as any;
     if (user) {
       const fields = {
         [`${provider}Id`]: profile[`${provider}Id`],

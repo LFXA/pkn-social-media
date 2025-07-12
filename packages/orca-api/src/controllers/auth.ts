@@ -12,7 +12,7 @@ import {
   updateUser,
 } from '../db';
 import { EmailRegex, ErrorCodes, ErrorMessages } from '../constants';
-import { sendEmail, getEmailTemplate, checkEmailVerification } from '../utils';
+import { getEmailTemplate, checkEmailVerification } from '../utils';
 import { URLSearchParams } from 'url';
 import { SocialProvider } from '../authentication';
 
@@ -69,11 +69,11 @@ const AuthController = {
           ctaLink: `${req.headers.origin}/email-verify?email=${email}&token=${token}`,
           ctaText: 'Confirm email',
         });
-        await sendEmail({
-          to: email,
-          subject: 'Email verification',
-          html: template,
-        });
+        // await sendEmail({
+        //   to: email,
+        //   subject: 'Email verification',
+        //   html: template,
+        // });
         return res.send('success');
       } catch (error) {
         return res.status(ErrorCodes.Internal).send(ErrorMessages.Generic);
@@ -196,12 +196,12 @@ const AuthController = {
     });
 
     try {
-      await sendEmail({
-        to: email,
-        subject: 'Reset Password Request',
-        html: template,
-      });
-      return res.send(`Password reset instruction has been sent to the ${email} email address.`);
+      // await sendEmail({
+      //   to: email,
+      //   subject: 'Reset Password Request',
+      //   html: template,
+      // });
+      // return res.send(`Password reset instruction has been sent to the ${email} email address.`);
     } catch (error) {
       return res.status(ErrorCodes.Internal).send(ErrorMessages.Generic);
     }
