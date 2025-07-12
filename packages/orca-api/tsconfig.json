@@ -11,5 +11,10 @@
     "strict": false,
     "skipLibCheck": true
   },
+   "include": [
+    "src",
+    "src/types"
+  ],
   "exclude": ["build", "node_modules"]
+  
 }

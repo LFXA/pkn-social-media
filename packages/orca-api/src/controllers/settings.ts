@@ -17,6 +17,7 @@ import {
 } from '../db';
 import { checkEmailVerification } from '../utils';
 import { uploadToCloudinary } from '../utils/cloudinary';
+import { UploadedFile } from 'express-fileupload';
 
 const SettingsController = {
   settings: async (req: Request, res: Response): Promise<any> => {
@@ -87,7 +88,7 @@ const SettingsController = {
   },
   uploadLogo: async (req: Request, res: Response): Promise<any> => {
     const imagePublicId = req.body.imagePublicId;
-    const image = req.files?.image;
+    const image = req.files?.image as UploadedFile;
 
     if (!image) {
       return res.status(ErrorCodes.Bad_Request).send('Please upload an image.');
