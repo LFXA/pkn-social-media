@@ -33,9 +33,6 @@ jobs:
       
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Start App (optional, for testing only)
-        run: yarn run start
      
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
