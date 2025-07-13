@@ -19,8 +19,6 @@ const Confirm: FC<ConfirmProps> = ({
   onConfirm,
   isOpen,
   title,
-  confirmText,
-  cancelText,
   hideHeading,
 }) => {
   return (

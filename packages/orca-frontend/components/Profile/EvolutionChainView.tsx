@@ -1,13 +1,10 @@
 import React, { FC } from 'react';
 import { Spacing, Skeleton, Link, P, Avatar } from '../ui';
 import {
-  ChainNode,
-  ChildChain,
   HeadingContainer,
   Heading,
   Root,
-  ChainContainer,
-  DownArrow
+  ChainContainer
 } from './style';
 
 interface EvolutionNode {

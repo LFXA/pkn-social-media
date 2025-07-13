@@ -51,7 +51,7 @@ const ChannelCreate: FC<ChannelCreateProps> = ({ closeModal, channels }) => {
   return (
     <ChannelForm
       closeModal={closeModal}
-      apiErrorMessage={error as string}
+      apiErrorMessage={error as any}
       onSubmit={onSubmit}
       loading={isPending}
       mode={ChannelFormMode.Create}

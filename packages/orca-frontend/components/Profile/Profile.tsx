@@ -128,18 +128,14 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
                  </TypeRow>
                 </P>
                 <TypeRow>
-                  {user.types?.map((type: string) => (
-                  <ImageContainer>
+                  {user.types?.map((type: string, key) => (
+                  <ImageContainer  key={key}>
                     <Image alt="type"
                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/types/generation-viii/brilliant-diamond-and-shining-pearl/${type}.png`} />
                     </ImageContainer>
                       ))}
-                </TypeRow>
-        
+                </TypeRow>        
               </Spacing>
-              
-             
-     
           </Container>
            <Container  bgColor={user.color || 'red' }>
              <EvolutionChainView chain={evolutionChain} isFetching={evolutionLoading} />
