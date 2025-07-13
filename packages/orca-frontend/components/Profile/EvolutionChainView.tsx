@@ -25,7 +25,9 @@ const EvolutionChainView: FC<EvolutionChainProps> = ({ chain, isFetching }) => {
 
  const renderChain = (node: EvolutionNode | null): JSX.Element | null => {
   if (!node) return null;
-
+  const mid = Math.ceil(node.evolves_to.length / 2);
+  const firstRow = node.evolves_to.slice(0, mid);
+  const secondRow = node.evolves_to.slice(mid);
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
         <Link disableBorderOnHover href={`/profile/${node.name}`}>
@@ -42,9 +44,17 @@ const EvolutionChainView: FC<EvolutionChainProps> = ({ chain, isFetching }) => {
         <>
           <div style={{ margin: '0 5rem' }}>➜</div>
 
-          {/* Support branching evolutions */}
           <div style={{ display: 'flex', gap: '4rem', flexDirection: 'column', justifyContent: 'center'  }}>
-            {node.evolves_to.map((child) => renderChain(child))}
+              {[firstRow, secondRow].map((row, rowIndex) => (
+          <div key={rowIndex} style={{ display: 'flex', gap: '4rem', justifyContent: 'center' }}>
+  
+            {row.map((child) => (
+              <div key={child.name} style={{ display: 'flex', margin: '0 1rem', alignItems: 'center' }}>               
+                {renderChain(child)}
+              </div>
+            ))}
+          </div>
+        ))}
           </div>
         </>
       )}
