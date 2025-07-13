@@ -16,6 +16,7 @@ const useSocket = (): Socket => {
 
     const socketInstance = io(Config.API_URL, {
       withCredentials: true,
+      transports: ['websocket'],
     });
     dispatch(setSocket(socketInstance));
 
