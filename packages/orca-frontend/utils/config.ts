@@ -1,4 +1,4 @@
-const API_PRODUCTION_URL = 'https://pkn-social-media.onrender.com/';
+const API_PRODUCTION_URL = 'https://pkn-social-media.onrender.com';
 const API_DEV_URL = 'http://localhost:4000';
 
 export const Config = {
