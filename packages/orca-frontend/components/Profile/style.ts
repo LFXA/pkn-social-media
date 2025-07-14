@@ -105,7 +105,7 @@ export const Info = styled.div`
   margin-left: auto;
   margin-right: auto;
   align-items: center;
-  width: 85%;
+  width: 90%;
 `;
 
 export const Actions = styled.div`
@@ -140,15 +140,39 @@ export const Heading = styled.h3`
 `;
 
 export const ChainContainer = styled.div`
-  display: flex;
+   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: 16px;
+  width: 100%;
+
+  .chain-child {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .evo-row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+
+    @media (min-width: ${(p) => p.theme.screen.md}) {
+      flex-wrap: nowrap;
+    }
+  }
 
   .connector {
+    margin: 1rem 0;
     font-size: 1.5rem;
     color: #888;
+
+    @media (min-width: ${(p) => p.theme.screen.md}) {
+      margin: 0 2rem;
+    }
   }
 `;
 

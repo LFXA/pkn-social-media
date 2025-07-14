@@ -105,7 +105,7 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
         
       </CoverPhoto>
 
-      <Info>
+      <Info >
         <H1>{user.fullName}</H1>
         <Container paddingHorizontal="sm" paddingVertical="xs" marginTop="sm" bgColor={user.color || 'red' } shadow="sm">
             
@@ -137,7 +137,7 @@ const Profile: FC<ProfileProps> = ({ user, queryKey }) => {
                 </TypeRow>        
               </Spacing>
           </Container>
-           <Container  bgColor={user.color || 'red' }>
+           <Container maxWidth="xxxl" bgColor={user.color || 'red' }>
              <EvolutionChainView chain={evolutionChain} isFetching={evolutionLoading} />
             </Container>
       </Info>
